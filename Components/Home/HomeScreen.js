@@ -11,7 +11,7 @@ const HomeScreen = () => {
         <View style={tw`pt-10 px-5`}>
 
             <Entete />
-            <TopResi />
+            <TopResi /> 
         </View>
         </>
     )
