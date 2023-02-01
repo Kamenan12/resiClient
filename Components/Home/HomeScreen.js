@@ -1,6 +1,7 @@
 import { View, Text, StyleSheet } from "react-native";
 import Entete from "./Entete";
 import tw from "twrnc"
+import TopResi from "./TopResi";
 
 
 
@@ -10,6 +11,7 @@ const HomeScreen = () => {
         <View style={tw`pt-10 px-5`}>
 
             <Entete />
+            <TopResi />
         </View>
         </>
     )
