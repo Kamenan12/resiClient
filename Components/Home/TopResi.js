@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, StyleSheet, Image } from "react-native";
+import { View, Text, StyleSheet, Image, ScrollView } from "react-native";
 import { db } from "../../firebase";
 import { collection, onSnapshot, query, where,orderBy } from "firebase/firestore";
 
+import { Icon } from "@rneui/themed";
 import tw from 'twrnc'
 
 
@@ -43,25 +44,31 @@ const TopResi = () => {
             //  console.log("uree222", usR)
             // console.log("x", x)
         })
-
+        console.log("fuuuuiii", fullResi)
     }
 
     useEffect( () => {
         getFullResi()
     }, []) 
-        console.log("fulll 111", fullResi)
+        // console.log("fulll 33", fullResi)
     return (
-        <View>
-            <View>
-                {/* {
-                    fullResi.map((R, index) => (
-                        R.data.map( (resi, index2) => (
-                            <ResiTop resi={resi} key={index2}/>
-                        ))
+        <View style={tw`px-3`}>
+            <View style={tw`flex-row justify-between`}>
+                <Text style={{ fontSize: 15, fontWeight: "700"}}>Top Residences</Text>
+                <Text>Tous</Text>
+            </View>
+            <View style={tw`flex-row py-2`}>
+                <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+                    {
+                        fullResi.map((R, index) => (
+                            R.map( (resi, index2) => (
+                                <ResiTop resi={resi} key={index2}/>
+                            ))
 
-                    ))
-                } */}
-                <Text>{fullResi.length}</Text>
+                        ))
+                    }
+                </ScrollView>
+                {/* <Text>{fullResi.length}</Text> */}
             </View>
         </View>
     )
@@ -75,9 +82,56 @@ const ResiTop = (props) => {
     // console.log("resii", residen.Images)
 
     return(
-        <View >
-            <View >
-                <Text>111ffff1</Text>
+        <View style={tw`px-2 `}>
+            <View style={tw`h-75 rounded-3xl shadow-lg bg-white`}>
+                <Image source={{uri: residen.Images[0].url}} style={[{width:260, height: 210}, tw`rounded-t-3xl`]}   />
+                <View style={tw`absolute ml-42 mt-43 bg-white rounded-lg p-1`}>
+                    <Text style={{ color: "red", fontWeight: "500"}}>{residen.Prix} fcfa</Text>
+                </View>
+                <View style={tw`px-3 pt-2`}>
+                
+                    <View style={tw`flex-row justify-between`}>
+                        <View>
+                            <Text style={[{fontWeight: "800"}]}>{residen.Titre}</Text>
+                        </View>
+                        <View style={tw`flex-row`}>
+                            <Icon type="antdesign" name="star" size={17}/> 
+                            <Text> 4.5</Text>
+                        </View>
+                    </View>
+                    <View style={tw`flex-row`}>
+                        {
+                            residen.Type_residence === "villa" ? 
+                            <View style={tw`flex-row`}> 
+                                {/* <Icon type="ionicon" name="md-home" size={20} color="red"/> */}
+                                <Text style={{ fontWeight: "600"}}> {residen.Type_residence}, </Text>
+                            </View>  : nulll
+                        }
+                        <View>
+                            <Text style={{fontWeight: "600"}}>{residen.Location.ville},</Text>
+                        </View>
+                        <View style={tw`px-2`}>
+                            <Text style={{fontWeight: "600"}}>{residen.Location.commune}</Text>
+                        </View>
+                    </View>
+                    <View style={tw`flex-row`}>
+                        
+                    </View>
+                    
+                    <View style={tw`flex-row`}>
+                        <View style={tw`flex-row items-center px-1`}>
+                            <Icon type="ionicon" name="bed" size={25} color="red"/> 
+                            <Text style={{fontSize: 20, paddingHorizontal: 4, }}>{residen.chambre}</Text>
+                            <Text style={{ fontSize: 10, paddingHorizontal: 1, }}>Chambres</Text>
+                        </View>
+                        <View style={tw`flex-row items-center`}>
+                            <Icon type="material-community" name="sofa" size={25} color="red"/> 
+                            <Text style={{fontSize: 20, paddingHorizontal: 4, }}>{residen.salon}</Text>
+                            <Text style={{ fontSize: 10, paddingHorizontal: 1, }}>Salons</Text>
+
+                        </View>
+                    </View>
+                </View>
             </View>
         </View>
     )

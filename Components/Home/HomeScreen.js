@@ -8,7 +8,7 @@ import TopResi from "./TopResi";
 const HomeScreen = () => {
     return (
         <>
-        <View style={tw`pt-10 px-5`}>
+        <View style={tw`py-10 `}>
 
             <Entete />
             <TopResi /> 
