@@ -57,7 +57,7 @@ const TopResi = () => {
                 <Text style={{ fontSize: 15, fontWeight: "700"}}>Top Residences</Text>
                 <Text>Tous</Text>
             </View>
-            <View style={tw`flex-row py-2`}>
+            <View style={tw`flex-row h-80 py-2`}>
                 <ScrollView horizontal showsHorizontalScrollIndicator={false}>
                     {
                         fullResi.map((R, index) => (
@@ -83,7 +83,7 @@ const ResiTop = (props) => {
 
     return(
         <View style={tw`px-2 `}>
-            <View style={tw`h-75 rounded-3xl shadow-lg bg-white`}>
+            <View style={tw`rounded-3xl shadow-lg bg-white`}>
                 <Image source={{uri: residen.Images[0].url}} style={[{width:260, height: 210}, tw`rounded-t-3xl`]}   />
                 <View style={tw`absolute ml-42 mt-43 bg-white rounded-lg p-1`}>
                     <Text style={{ color: "red", fontWeight: "500"}}>{residen.Prix} fcfa</Text>

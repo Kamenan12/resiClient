@@ -2,6 +2,7 @@ import { View, Text, StyleSheet } from "react-native";
 import Entete from "./Entete";
 import tw from "twrnc"
 import TopResi from "./TopResi";
+import TopVille from "./TopVille";
 
 
 
@@ -11,7 +12,9 @@ const HomeScreen = () => {
         <View style={tw`py-10 `}>
 
             <Entete />
+
             <TopResi /> 
+            <TopVille />
         </View>
         </>
     )
