@@ -1,5 +1,5 @@
 import { View, Text, StyleSheet, Image } from "react-native";
-import { Ville } from "../Data/Ville";
+import { Ville } from "../Data/Data";
 
 import tw from "twrnc"
 import { ScrollView } from "react-native";
@@ -17,7 +17,7 @@ const TopVille = () => {
                 <Text> Tous </Text>
             </View>
 
-            <View style={tw`flex-row `}>
+            <View style={tw`flex-row h-20`}>
                 <ScrollView horizontal showsHorizontalScrollIndicator={false}>
 
                 {
@@ -48,7 +48,7 @@ const VilleTop = (props) => {
                  <Text style={{fontWeight: "500", fontSize: 15}}>{V.nom}</Text>
                 </View>
             </View>
-            </View>
+        </View>
     )
 }
 
