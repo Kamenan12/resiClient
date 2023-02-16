@@ -8,7 +8,7 @@ import AjoutRecent from "./AjoutRecent";
 
 
 
-const HomeScreen = () => {
+const HomeView= () => {
     return (
         <>
         <View style={tw`py-10 `}>
@@ -33,7 +33,7 @@ const HomeScreen = () => {
 
 
 
-export default HomeScreen ;
+export default HomeView;
 
 
 const styles = StyleSheet.create({
