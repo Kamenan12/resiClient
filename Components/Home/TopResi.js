@@ -44,7 +44,7 @@ const TopResi = () => {
             //  console.log("uree222", usR)
             // console.log("x", x)
         })
-        console.log("fuuuuiii", fullResi)
+        // console.log("fuuuuiii", fullResi)
     }
 
     useEffect( () => {

@@ -9,7 +9,7 @@ import { color } from "@rneui/base";
 
 const TopCommune = () => {
     return (
-        <View style={tw`pb-30`}>
+        <View style={tw``}>
             <View style={tw`flex-row p-2 justify-between`}>
                 <Text style={{ fontSize: 15, fontWeight: "700"}}> top commune </Text>
                 <Text>Tous </Text>
