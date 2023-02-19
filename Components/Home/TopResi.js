@@ -1,13 +1,17 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, StyleSheet, Image, ScrollView } from "react-native";
+import { View, Text, StyleSheet, Image, ScrollView, TouchableOpacity } from "react-native";
 import { db } from "../../firebase";
 import { collection, onSnapshot, query, where,orderBy } from "firebase/firestore";
+import { useNavigation } from "@react-navigation/native";
 
 import { Icon } from "@rneui/themed";
 import tw from 'twrnc'
+import Details from "./details/DetailView";
 
 
 const TopResi = () => {
+
+    const Navigation = useNavigation();
 
     const [fullResi, setFullResi] = useState([]);
 
@@ -47,6 +51,16 @@ const TopResi = () => {
         // console.log("fuuuuiii", fullResi)
     }
 
+    const details = (residen) => {
+        Navigation.navigate('Details', {
+            residence: residen
+        })
+    }
+ 
+
+
+
+
     useEffect( () => {
         getFullResi()
     }, []) 
@@ -62,7 +76,7 @@ const TopResi = () => {
                     {
                         fullResi.map((R, index) => (
                             R.map( (resi, index2) => (
-                                <ResiTop resi={resi} key={index2}/>
+                                <ResiTop resi={resi} key={index2} details={details}/>
                             ))
 
                         ))
@@ -82,58 +96,60 @@ const ResiTop = (props) => {
     // console.log("resii", residen.Images)
 
     return(
-        <View style={tw`px-2 `}>
-            <View style={tw`rounded-3xl shadow-lg bg-white`}>
-                <Image source={{uri: residen.Images[0].url}} style={[{width:260, height: 210}, tw`rounded-t-3xl`]}   />
-                <View style={tw`absolute ml-42 mt-43 bg-white rounded-lg p-1`}>
-                    <Text style={{ color: "red", fontWeight: "500"}}>{residen.Prix} fcfa</Text>
-                </View>
-                <View style={tw`px-3 pt-2`}>
-                
-                    <View style={tw`flex-row justify-between`}>
-                        <View>
-                            <Text style={[{fontWeight: "800"}]}>{residen.Titre}</Text>
+        <TouchableOpacity style={tw`px-2`} activeOpacity={0.8} onPress={() => props.details(residen)}>
+            
+                <View style={tw`rounded-3xl shadow-lg bg-white`}>
+                    <Image source={{uri: residen.Images[0].url}} style={[{width:260, height: 210}, tw`rounded-t-3xl`]}   />
+                    <View style={tw`absolute ml-42 mt-43 bg-white rounded-lg p-1`}>
+                        <Text style={{ color: "red", fontWeight: "500"}}>{residen.Prix} fcfa</Text>
+                    </View>
+                    <View style={tw`px-3 pt-2`}>
+                    
+                        <View style={tw`flex-row justify-between`}>
+                            <View>
+                                <Text style={[{fontWeight: "800"}]}>{residen.Titre}</Text>
+                            </View>
+                            <View style={tw`flex-row`}>
+                                <Icon type="antdesign" name="star" size={17}/> 
+                                <Text> 4.5</Text>
+                            </View>
                         </View>
                         <View style={tw`flex-row`}>
-                            <Icon type="antdesign" name="star" size={17}/> 
-                            <Text> 4.5</Text>
+                            {
+                                residen.Type_residence === "villa" ? 
+                                <View style={tw`flex-row`}> 
+                                    {/* <Icon type="ionicon" name="md-home" size={20} color="red"/> */}
+                                    <Text style={{ fontWeight: "600"}}> {residen.Type_residence}, </Text>
+                                </View>  : nulll
+                            }
+                            <View>
+                                <Text style={{fontWeight: "600"}}>{residen.Location.ville},</Text>
+                            </View>
+                            <View style={tw`px-2`}>
+                                <Text style={{fontWeight: "600"}}>{residen.Location.commune}</Text>
+                            </View>
                         </View>
-                    </View>
-                    <View style={tw`flex-row`}>
-                        {
-                            residen.Type_residence === "villa" ? 
-                            <View style={tw`flex-row`}> 
-                                {/* <Icon type="ionicon" name="md-home" size={20} color="red"/> */}
-                                <Text style={{ fontWeight: "600"}}> {residen.Type_residence}, </Text>
-                            </View>  : nulll
-                        }
-                        <View>
-                            <Text style={{fontWeight: "600"}}>{residen.Location.ville},</Text>
+                        <View style={tw`flex-row`}>
+                            
                         </View>
-                        <View style={tw`px-2`}>
-                            <Text style={{fontWeight: "600"}}>{residen.Location.commune}</Text>
-                        </View>
-                    </View>
-                    <View style={tw`flex-row`}>
                         
-                    </View>
-                    
-                    <View style={tw`flex-row`}>
-                        <View style={tw`flex-row items-center px-1`}>
-                            <Icon type="ionicon" name="bed" size={25} color="red"/> 
-                            <Text style={{fontSize: 20, paddingHorizontal: 4, }}>{residen.chambre}</Text>
-                            <Text style={{ fontSize: 10, paddingHorizontal: 1, }}>Chambres</Text>
-                        </View>
-                        <View style={tw`flex-row items-center`}>
-                            <Icon type="material-community" name="sofa" size={25} color="red"/> 
-                            <Text style={{fontSize: 20, paddingHorizontal: 4, }}>{residen.salon}</Text>
-                            <Text style={{ fontSize: 10, paddingHorizontal: 1, }}>Salons</Text>
+                        <View style={tw`flex-row`}>
+                            <View style={tw`flex-row items-center px-1`}>
+                                <Icon type="ionicon" name="bed" size={25} color="red"/> 
+                                <Text style={{fontSize: 20, paddingHorizontal: 4, }}>{residen.chambre}</Text>
+                                <Text style={{ fontSize: 10, paddingHorizontal: 1, }}>Chambres</Text>
+                            </View>
+                            <View style={tw`flex-row items-center`}>
+                                <Icon type="material-community" name="sofa" size={25} color="red"/> 
+                                <Text style={{fontSize: 20, paddingHorizontal: 4, }}>{residen.salon}</Text>
+                                <Text style={{ fontSize: 10, paddingHorizontal: 1, }}>Salons</Text>
 
+                            </View>
                         </View>
                     </View>
                 </View>
-            </View>
-        </View>
+            
+        </TouchableOpacity>
     )
 }
 
