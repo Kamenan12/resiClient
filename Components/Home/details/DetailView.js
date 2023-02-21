@@ -7,7 +7,7 @@ import Info from "./Info";
 import Piece from "./Piece";
 import Equipement from "./Equipement";
 import Calendrier from "./Calendrier";
-
+import { Icon, Button } from "@rneui/themed";
 
 
 
@@ -26,6 +26,17 @@ const DetailView = (props) => {
                 <Equipement EquiBase={Detail.residence.Equipement_bases} EquiExtra={Detail.residence.Equipement_extra} />
                 <Calendrier Calendrier={Detail.residence.Calendrier}/>
             </ScrollView>
+                <View style={tw`h-20 bg-white fixed border-t-2 border-gray-200 p-5`}>
+                    <View style={tw`flex-row justify-between`}>
+                        <View>
+                            <Text>jours de seclection</Text>
+                        </View>
+                        <View style={tw``}>
+                            <Button title="Reserer"/>
+                        </View>
+                    </View>
+                </View>
+
         </>
     )
 }

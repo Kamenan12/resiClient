@@ -30,6 +30,27 @@ const Calendrier = (props) => {
         ))
     ))
 
+
+    const CustumStyleDate = [] 
+    // ran.map( (dat) => (
+        rang.map((d) => (
+            CustumStyleDate.push({
+                date: d,
+                style: {
+                    // backgroundColor: 'red'
+                },
+                textStyle: {
+                    // color: 'green'
+                }, 
+                containerStyle: {
+                //  backgroundColor: 'red'
+                },
+                // allowDisabled: true
+
+            })
+        ))
+    // ))
+
     const getRang = () => {
         let PrDate = startDate;
         let DrDate = endDate;
@@ -42,7 +63,7 @@ const Calendrier = (props) => {
             // console.log("en basss")
             while (PrDate <= DrDate) {
                 console.log(nombre);
-                nombre = nombre + 1
+                // nombre = nombre + 1
                 TabRang = [...TabRang, PrDate]
                 PrDate = moment(PrDate).add(1, "day").format("YYYY-MM-DD");
             //    console.log("Prdate", PrDate)
@@ -50,11 +71,7 @@ const Calendrier = (props) => {
             }
             setRang(TabRang);
         }
-        // setRang(TabRang)
-        // console.log("nombre", nombre)
         
-        //    console.log("TabRang", TabRang)
-      
         
     }
 
@@ -82,38 +99,40 @@ const Calendrier = (props) => {
     // const jourJ = new Date();
     console.log("rang", rang)
     return (
-        <View>
-        <Text style={[{ fontSize: 24, fontWeight: "700", fontFamily: "serif"}]}>Disponibilite </Text>
-        <View>
-            <View>
-                {jourIndispo.map((j, index) => (
-                    <Text key={index}>{j}</Text>
-                ))}
+        <View style={tw`px-3`}>
+            <Text style={[{ fontSize: 24, fontWeight: "700", fontFamily: "serif"}]}>Disponibilite </Text>
+            <View style={tw`py-5`}>
+                {/* <View>
+                    {jourIndispo.map((j, index) => (
+                        <Text key={index}>{j}</Text>
+                    ))}
+                </View> */}
+                <CalendarPicker 
+                minDate={minDate}
+                maxDate={maxDate}
+                // enableDateChange={false}
+                onDateChange={onDateChange}
+                allowRangeSelection={true}
+                startFromMonday={true}
+                todayBackgroundColor="transparent"
+                // todayBackgroundColor='blue'
+                // selectedDayTextColor="blue"
+                selectedDayColor="#fca4a4"
+                nextComponent={<Icon type="antdesign" name="rightcircle" color="red" style={{marginRight: 30}}/>}
+                previousComponent={<Icon type="antdesign" name="leftcircle" color="red" style={{marginLeft: 30}}/>}
+                previousTitle="Precedent"
+                nextTitle="Suivant"
+                weekdays={['Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'sam', 'Dim']}
+                months={['Janvier', 'Fevrier', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Otobre', 'Novembre', 'Decembre']}
+                disabledDates={jourIndispo}
+                customDatesStyles={CustumStyleDate}
+                />
             </View>
-            <CalendarPicker 
-            minDate={minDate}
-            maxDate={maxDate}
-            // enableDateChange={false}
-            onDateChange={onDateChange}
-            allowRangeSelection={true}
-            startFromMonday={true}
-            todayBackgroundColor="transparent"
-            // todayBackgroundColor='blue'
-            selectedDayTextColor="black"
-            
-            previousTitle="Precedent"
-            nextTitle="Suivant"
-            weekdays={['Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'sam', 'Dim']}
-            months={['Janvier', 'Fevrier', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Otobre', 'Novembre', 'Decembre']}
-            disabledDates={jourIndispo}
-            // customDatesStyles={CustumStyleDate}
-            />
-        </View>
         <View style={tw`items-center`}>
             <Text style={{ fontSize: 20, fontWeight: "400"}}> Debut de jours:  {startDate}</Text>
             <Text style={{ fontSize: 20, fontWeight: "400"}}> Fin de jours:  {endDate}</Text>
             <Text style={{ fontSize: 20, fontWeight: "400"}}> nombre de jour : {NbreDate}</Text>
-            <Text style={{ fontSize: 20, fontWeight: "400"}}> log : {rang.length}</Text>
+            {/* <Text style={{ fontSize: 20, fontWeight: "400"}}> log : {rang.length}</Text> */}
          </View>
     </View>
     )
