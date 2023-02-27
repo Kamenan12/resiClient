@@ -70,6 +70,7 @@ const Calendrier = (props) => {
             
             }
             setRang(TabRang);
+            props.JourSelection(TabRang)
         }
         
         
@@ -84,11 +85,13 @@ const Calendrier = (props) => {
             // console.log("type", type);
             // console.log("dureee", date)
             getRang();
+            // props.JourSelection({rang})
         } else {
             setSelectedStartDate(date);
             setSelectedEndDate(null)
             // console.log("type", type);
             getRang();
+            // props.JourSelection(["555", "6666", "777", "8888"]) 
         }
         
     }
