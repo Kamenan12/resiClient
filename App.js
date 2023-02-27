@@ -6,6 +6,8 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import HomeView from './Components/Home/HomeViews';
 import DetailView from './Components/Home/details/DetailView';
+import Reservation from './Components/Home/Reservation/Reservation';
+
 
 
 // function HomeScreen () {
@@ -25,6 +27,7 @@ export default function App() {
       <Stack.Navigator>
         <Stack.Screen name="Home" component={HomeView} options={{ headerShown: false, }}/>
         <Stack.Screen name="Details" component={DetailView} options={{ headerShown: false, }}/>
+        <Stack.Screen name="Reservation" component={Reservation} options={{ headerShown: false, }}/>
       </Stack.Navigator>
     </NavigationContainer>
      

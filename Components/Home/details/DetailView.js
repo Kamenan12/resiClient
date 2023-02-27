@@ -1,5 +1,6 @@
 import  React, { useState, useEffect, useLayoutEffect, useRef } from "react";
 import { View, Text, StyleSheet, ScrollView  } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 import Images from "./Images";
 import moment from "moment";
 import 'moment/locale/fr'
@@ -17,14 +18,22 @@ import { Icon, Button } from "@rneui/themed";
 
 const DetailView = (props) => {
     const [jourSelection, setJourSelection] = useState([])
+    const Nagation = useNavigation();
     // console.log("detail", props.route.params)
     const Detail = props.route.params;
     const deb = moment(jourSelection[0]).format("DD MMMM")
     const fin = moment(jourSelection[jourSelection.length - 1]).format("DD MMMM")
+    
+    const Reserve = (Detail, jourSelection) => {
+        Nagation.navigate('Reservation', {
+            Resi: Detail,
+            Jour: jourSelection
+        });
+    }
     // const jourSelectionee = (jour) => {
     //     setJourSelection(jour)
     // }
-    // useEffect(() => (
+    // useEffect(() => ( 
     //     setJourSelection
     // ), [])
     console.log("selection", jourSelection)
@@ -48,6 +57,7 @@ const DetailView = (props) => {
                         </View>
                         <View style={tw`w-30`}>
                             <Button title="Réserer"
+                            onPress={() => Reserve(Detail, jourSelection)}
                             buttonStyle={[tw`bg-red-500`]}
                             containerStyle={[tw`rounded-lg`]}
                             />
