@@ -1,5 +1,5 @@
 import { View, Text, StyleSheet, Image, ScrollView } from "react-native";
-
+import { useNavigation } from "@react-navigation/native";
 import moment from "moment";
 
 import tw from "twrnc"
@@ -7,6 +7,8 @@ import { Button, Divider, Icon } from "@rneui/themed";
 
 const Reservation = (props) => {
     const Resi = props.route.params.Resi
+
+    const Navigation = useNavigation();
 
     const jourSelction = props.route.params.Jour;
     const DebSejour = moment(jourSelction[0]).format("DD/MM/YYYY");
@@ -17,6 +19,10 @@ const Reservation = (props) => {
     const Total = CoutSejour + FraisServie
 
     // console.log("poro", props.route.params.Jour)
+
+    const Paiement = () => {
+       Navigation.navigate('Paiement')
+    }
     return (
         <>
         <ScrollView>
@@ -118,6 +124,7 @@ const Reservation = (props) => {
                 <View style={[tw`bg-white items-center mb-2 py-2`]}>
                     <View style={tw`w-80`}>
                         <Button title="Mode de paiement"
+                        onPress={()=> Paiement()}
                         buttonStyle={[
                             tw`bg-red-500 rounded-lg`
                         ]}
