@@ -7,6 +7,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import HomeView from './Components/Home/HomeViews';
 import DetailView from './Components/Home/details/DetailView';
 import Reservation from './Components/Home/Reservation/Reservation';
+import Paiement from './Components/Home/Reservation/Paiement';
 
 
 
@@ -28,6 +29,7 @@ export default function App() {
         <Stack.Screen name="Home" component={HomeView} options={{ headerShown: false, }}/>
         <Stack.Screen name="Details" component={DetailView} options={{ headerShown: false, }}/>
         <Stack.Screen name="Reservation" component={Reservation} options={{ headerShown: false, }}/>
+        <Stack.Screen name="Paiement" component={Paiement} options={{ headerShown: false, }}/>
       </Stack.Navigator>
     </NavigationContainer>
      

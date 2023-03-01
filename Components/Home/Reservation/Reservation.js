@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, Image, ScrollView } from "react-native";
 import moment from "moment";
 
 import tw from "twrnc"
-import { Divider } from "@rneui/themed";
+import { Button, Divider, Icon } from "@rneui/themed";
 
 const Reservation = (props) => {
     const Resi = props.route.params.Resi
@@ -21,7 +21,8 @@ const Reservation = (props) => {
         <>
         <ScrollView>
             <View style={tw`pt-10`}>
-                <View style={tw`bg-white py-3 items-center mb-2`}>
+                <View style={tw`bg-white py-3 items-center mb-2 flex-row`}>
+                    <Icon type="antdesign" name="close" />
                     <Text style={[{fontSize: 20, fontWeight: "600"}]}> Confirmatiom de Reservation</Text>
                 </View>
                     {/* <Divider width={3} style={tw`bg-gray-100` }/> */}
@@ -110,6 +111,17 @@ const Reservation = (props) => {
                             <Text style={{fontSize: 15, fontWeight: "600"}}> Total(fcfa)</Text>
                             <Text style={{fontSize: 15, fontWeight: "500"}}> {Total} </Text>
                         </View>
+                        
+                    </View>
+                </View>
+
+                <View style={[tw`bg-white items-center mb-2 py-2`]}>
+                    <View style={tw`w-80`}>
+                        <Button title="Mode de paiement"
+                        buttonStyle={[
+                            tw`bg-red-500 rounded-lg`
+                        ]}
+                        />
                     </View>
                 </View>
             </View>
