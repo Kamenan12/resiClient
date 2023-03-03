@@ -8,6 +8,7 @@ import HomeView from './Components/Home/HomeViews';
 import DetailView from './Components/Home/details/DetailView';
 import Reservation from './Components/Home/Reservation/Reservation';
 import Paiement from './Components/Home/Reservation/Paiement';
+import SignIn from './Components/connexion/SignIn';
 
 
 
@@ -25,11 +26,12 @@ const Stack = createNativeStackNavigator();
 export default function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator>
+      <Stack.Navigator initialRouteName='SignIn'>
         <Stack.Screen name="Home" component={HomeView} options={{ headerShown: false, }}/>
         <Stack.Screen name="Details" component={DetailView} options={{ headerShown: false, }}/>
         <Stack.Screen name="Reservation" component={Reservation} options={{ headerShown: false, }}/>
         <Stack.Screen name="Paiement" component={Paiement} options={{ headerShown: false, }}/>
+        <Stack.Screen name="SignIn" component={SignIn} options={{ headerShown: false, }}/>
       </Stack.Navigator>
     </NavigationContainer>
      
