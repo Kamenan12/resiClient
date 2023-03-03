@@ -10,7 +10,7 @@ import { getStorage } from "firebase/storage";
 
 
 
-const firebaseConfig = {
+export const firebaseConfig = {
     apiKey: "AIzaSyAgwmbNxFHn2Ya1tK4aojLmp5DFOyqLc-I",
     authDomain: "dbtestresi.firebaseapp.com",
     projectId: "dbtestresi",

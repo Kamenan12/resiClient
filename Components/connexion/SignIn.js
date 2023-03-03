@@ -1,31 +1,63 @@
-import { Input } from "@rneui/themed";
+import { useState, useRef} from "react";
+// import { Input } from "@rneui/themed";
 import { View, Text, StyleSheet, TextInput } from "react-native";
-import {auth} from "../../firebase"
-import {RecaptchaVerifier } from "firebase/auth";
+import {auth, firebaseConfig} from "../../firebase"
+import {signInWithPhoneNumber, PhoneAuthProvider} from "firebase/auth";
+import { FirebaseRecaptchaVerifierModal, FirebaseRecaptchaBanner } from 'expo-firebase-recaptcha';
+import PhoneInput from "react-native-phone-number-input";
 import tw from 'twrnc'
 
 
 
 const SignIn = () => {
-    
-    
-    // function setUpRecaptch(){
+        const [number, setNumber] = useState('')
+        const recaptchaVerifier = useRef(null)
+        const [verificationId, setVerificationId] = useState()
+    // function setUpRecaptch(number){
 
-    //     window.recaptchaVerifier = new auth.RecaptchaVerifier(
-    //         'recaptcha-container',
+    //    const recaptchaVerifier = new RecaptchaVerifier(
+    //         'recaptcha-container' ,
     //         {}, 
     //         auth
     //     );
     //     recaptchaVerifier.render();
     // }
+    
 
     const getRec = async() => {
-
+        // if (number !== "" || number !== undefined)
         try {
-            window.recaptchaVerifier = new RecaptchaVerifier('recaptcha-container', {}, auth);
-        } catch (error) {
-            console.log("eerppr", error)
+            const phoneProvid = new PhoneAuthProvider(auth)
+
+            const verificationId = await phoneProvid.verifyPhoneNumber(
+                number, recaptchaVerifier.current
+            );
+                setVerificationId(verificationId);
+               alert("les code a ete envoyer sr votre telphoene")
+        } catch (err) {
+            console.log("erre", err.message)
         }
+        // try {
+        //     signInWithPhoneNumber(auth, number, recaptchaVerifier)
+        //     .then((confirmationResult) => {
+        //     // SMS sent. Prompt user to type the code from the message, then sign the
+        //     // user in with confirmationResult.confirm(code).
+        //     window.confirmationResult = confirmationResult;
+        //     // ...
+        //     }).catch((error) => {
+        //     // Error; SMS not sent
+        //     // ...
+        //     });
+        // }
+        
+
+        //     console.log("numb", number)
+        // try {
+        //     const response = await setUpRecaptch(number);
+        //     console.log("rrrrr", response)
+        // } catch (error) {
+        //     console.log("eerppr", error)
+        // }
 
         // try {
         //     const response = await setUpRecaptch();
@@ -42,13 +74,22 @@ const SignIn = () => {
         <>
             <View style={tw`h-full items-center justify-center`}>
                 <Text> connexion</Text>
-                <Input />
+                <PhoneInput 
+                // ref={PhoneInput}
+                defaultCode="CI"
+                value={number}
+                onChangeFormattedText={(text) => setNumber(text)}
+                placeholder="Entrez numero"
+
+                />
                     {/* <View>
                         <Text onPress={() => getRecap()}>dddydyy</Text>
                     </View> */}
-                <View id='recaptcha-container'>
-                    
-                </View>
+                <FirebaseRecaptchaVerifierModal 
+                    ref={recaptchaVerifier}
+                    firebaseConfig={firebaseConfig}
+                />
+                <Text> {number}</Text>
                 <Text onPress={()=> getRec()}>Touche</Text>
             </View>
         </>
