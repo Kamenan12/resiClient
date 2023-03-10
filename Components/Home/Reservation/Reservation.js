@@ -1,3 +1,6 @@
+import React, { useState, useEffect } from 'react';
+import { auth } from '../../../firebase';
+import { onAuthStateChanged } from 'firebase/auth';
 import { View, Text, StyleSheet, Image, ScrollView } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import moment from "moment";
@@ -7,7 +10,7 @@ import { Button, Divider, Icon } from "@rneui/themed";
 
 const Reservation = (props) => {
     const Resi = props.route.params.Resi
-
+    const user = auth.currentUser;
     const Navigation = useNavigation();
 
     const jourSelction = props.route.params.Jour;
@@ -21,15 +24,38 @@ const Reservation = (props) => {
     // console.log("poro", props.route.params.Jour)
 
     const Paiement = () => {
-       Navigation.navigate('Paiement')
+        user ? 
+        Navigation.navigate('Paiement')
+        
+        : (Navigation.navigate('SignIn'), console.log("USer ID doit de connecter"))
+       
     }
+
+    // useEffect(() => {
+    //     onAuthStateChanged(auth, (user) => {
+    //         if (user) {
+    //             console.log("User connecter");
+    //             console.log("ID user", user.uid)
+    //             Navigation.navigate('SignIn')
+    //         } else {
+    //             console.log ("user non connecter")
+    //         }
+    //     })
+    //     // const unsubscribe = auth.onAuthStateChanged(user => {
+    //     //     if (user) {
+    //     //         console.log("user ID", user.uid)
+    //     //         navigation.navigate('SignIn')
+    //     //     } 
+    //     // })
+    //     // return unsubscribe
+    // })
     return (
         <>
         <ScrollView>
             <View style={tw`pt-10`}>
-                <View style={tw`bg-white py-3 items-center mb-2 flex-row`}>
-                    <Icon type="antdesign" name="close" />
-                    <Text style={[{fontSize: 20, fontWeight: "600"}]}> Confirmatiom de Reservation</Text>
+                <View style={tw`bg-white py-3 justify-center mb-2 flex-row`}>
+                    <Icon type="antdesign" name="close" onPress={() => Navigation.goBack()}/>
+                    <Text style={[{fontSize: 20, fontWeight: "600"}]} > Confirmatiom de Reservation</Text>
                 </View>
                     {/* <Divider width={3} style={tw`bg-gray-100` }/> */}
                 <View style={[tw`bg-white items-center mb-2 py-4`]}>

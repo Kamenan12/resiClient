@@ -1,17 +1,26 @@
+import React, { useState, useEffect } from 'react';
+
+import { useNavigation } from '@react-navigation/core';
+import { auth } from "../../../firebase";
 import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
 import { ChoixPaiement } from "../../Data/Paiement";
 import { Icon } from "@rneui/themed";
 import tw from "twrnc"
+import { onAuthStateChanged } from 'firebase/auth';
 
 
 
 
 const Paiement = () => {
+    const Navigation = useNavigation();
+
+
+   
     return (
         <>
             <View style={tw`pt-10 items-center`}>
                 <View style={tw`bg-white w-full py-3 justify-center mb-2 flex-row `}>
-                <Icon type="antdesign" name="close" />
+                <Icon type="antdesign" name="close" onPress={() => Navigation.goBack()}/>
                     <Text style={[{fontSize: 20, fontWeight: "600"}]}> Choisir Mode de paiement</Text>
                 </View>
                 {

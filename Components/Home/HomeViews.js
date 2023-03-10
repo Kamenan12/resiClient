@@ -1,4 +1,7 @@
+import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, ScrollView } from "react-native";
+import { auth } from '../../firebase';
+import { useNavigation } from '@react-navigation/native';
 import Entete from "./Entete";
 import tw from "twrnc"
 import TopResi from "./TopResi";
@@ -9,6 +12,18 @@ import AjoutRecent from "./AjoutRecent";
 
 
 const HomeView= () => {
+    const navigation = useNavigation();
+
+    // useEffect(() => {
+    //     const unsubscribe = auth.onAuthStateChanged(user => {
+    //         if (user) {
+    //             // console.log("user ID", user.uid)
+    //             // navigation.navigate('SignIn')
+    //         } 
+    //     })
+    //     return unsubscribe
+    // })
+
     return (
         <>
         <View style={tw`py-10 `}>
