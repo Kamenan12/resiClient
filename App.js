@@ -14,6 +14,8 @@ import Reservation from './Components/Home/Reservation/Reservation';
 import Paiement from './Components/Home/Reservation/Paiement';
 import SignIn from './Components/connexion/SignIn';
 import Setting from './Components/Setting/SettingScreen';
+import Villes from './Components/Home/villes/Villes';
+import Communes from './Components/Home/villes/Commune';
 
 
 
@@ -86,6 +88,8 @@ export default function App() {
         <Stack.Screen name="Reservation" component={Reservation} options={{ headerShown: false, }}/>
         <Stack.Screen name="Paiement" component={Paiement} options={{ headerShown: false, }}/>
         <Stack.Screen name="SignIn" component={SignIn} options={{ headerShown: false, }}/>
+        <Stack.Screen name="Villes" component={Villes} options={{ headerShown: false, }}/>
+        <Stack.Screen name="Communes" component={Communes} options={{ headerShown: false, }}/>
       </Stack.Navigator>
       {/* <Drawer.Navigator initialRouteName='Home-G' screenOptions={{
         headerTransparent: true, 

@@ -20,7 +20,7 @@ const Entete = () => {
                     <Text style={[tw``, {fontSize: 25, fontWeight: "500", color: "red"}]}> Resi +</Text>
                 </View>
             </View>
-            <View>
+            <View style={tw`items-center`}>
                 <BarCherche />
             </View>
         </View>

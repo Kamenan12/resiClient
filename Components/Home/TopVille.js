@@ -1,6 +1,6 @@
 import { View, Text, StyleSheet, Image } from "react-native";
 import { Ville } from "../Data/Data";
-
+import { useNavigation } from "@react-navigation/native";
 import tw from "twrnc"
 import { ScrollView } from "react-native";
 
@@ -9,12 +9,22 @@ import { ScrollView } from "react-native";
 
 const TopVille = () => {
 
+    const Navigation = useNavigation();
+
+
+
+
+
+    const ToutVille = () => {
+        Navigation.navigate('Villes')
+    }
+
 
     return (
         <View style={tw`px-2`}>
             <View style={tw`flex-row justify-between`}>
                 <Text style={{ fontSize: 15, fontWeight: "700"}}> Top Villes</Text>
-                <Text> Tous </Text>
+                <Text onPress={() => ToutVille()}> Tous </Text>
             </View>
 
             <View style={tw`flex-row h-20`}>
