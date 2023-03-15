@@ -76,7 +76,7 @@ const TopResi = () => {
                     {
                         fullResi.map((R, index) => (
                             R.map( (resi, index2) => (
-                                <ResiTop resi={resi} key={index2} details={details}/>
+                                <ResiTop resi={resi} key={index2} details={details} key2={index}/>
                             ))
 
                         ))

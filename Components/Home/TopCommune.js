@@ -20,8 +20,8 @@ const TopCommune = () => {
                 {
                     Ville.map((V, index) => (
                         V.Commune ? (
-                            V.Commune.map ((C, index) => (
-                                <CommuneTop commune={C} Ville={V.nom}/>
+                            V.Commune.map ((C, index2) => (
+                                <CommuneTop commune={C} Ville={V.nom} key={index2} kyey2={index}/>
                             ))
                         ) : null
                         

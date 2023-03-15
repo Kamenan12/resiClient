@@ -13,6 +13,7 @@ import DetailView from './Components/Home/details/DetailView';
 import Reservation from './Components/Home/Reservation/Reservation';
 import Paiement from './Components/Home/Reservation/Paiement';
 import SignIn from './Components/connexion/SignIn';
+import Setting from './Components/Setting/SettingScreen';
 
 
 
@@ -39,10 +40,26 @@ function DrawerNavigation(){
       headerTransparent: true, 
       headerTitle: "",
       drawerContentStyle:{
+        // backgroundColor: "withe"
+      },
+      drawerItemStyle: {
+        borderBottomWidth: 0.5,
+        borderColor: "#F27070",
         
-      }
+      },
+      drawerLabelStyle: {
+        fontSize: 18,
+        color: "black",
+        // fontFamily: "serif",
+        fontWeight: "500"
+      },
+      drawerActiveTintColor: "",
+      drawerActiveBackgroundColor: ""
     }}>
-        <Drawer.Screen name="Home-s" component={HomeScreen}/>
+        <Drawer.Screen name="Home-s" component={HomeScreen} options={{
+          title: "Accueil"
+        }}/>
+        <Drawer.Screen name="Setting" component={Setting}/>
         {/* <Drawer.Screen name="eeee" /> */}
         {/* <HomeStack.Screen name="Details" component={DetailView} options={{ headerShown: false, }}/>
         <HomeStack.Screen name="Reservation" component={Reservation} options={{ headerShown: false, }}/>

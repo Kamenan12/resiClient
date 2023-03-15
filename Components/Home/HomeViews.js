@@ -30,8 +30,8 @@ const HomeView= () => {
         <View style={tw`py-10 `}>
         
                 {/* <Menu /> */}
-                <Entete />
             
+                <Entete />
             <ScrollView showsVerticalScrollIndicator={false} >
                 
                 <TopResi /> 

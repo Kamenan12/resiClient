@@ -46,7 +46,7 @@ const DetailView = (props) => {
                 <Equipement EquiBase={Detail.residence.Equipement_bases} EquiExtra={Detail.residence.Equipement_extra} />
                 <Calendrier Calendrier={Detail.residence.Calendrier} JourSelection={setJourSelection}/>
             </ScrollView>
-                <View style={tw`h-20 bg-white fixed border-t-2 border-gray-200 p-3`}>
+                <View style={tw`h-20 bg-white  border-t-2 border-gray-200 p-3`}>
                     <View style={tw`flex-row justify-between`}>
                         <View>
                             <Text>jours de seclectionnes</Text>

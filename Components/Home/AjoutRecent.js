@@ -63,7 +63,7 @@ const AjoutRecent = () => {
                         RecentResi.map((R, index) => (
                             R.map( (resi, index2) => (
                                 // console.log("RRRR", resi)
-                                <RecentAjout resi={resi} key={index2} />
+                                <RecentAjout resi={resi} key={index2} key2={index}/>
                             ))
 
                         ))

@@ -25,8 +25,10 @@ const Reservation = (props) => {
 
     const Paiement = () => {
         user ? 
+        (Navigation.navigate('Paiement'), console.log("User est connecter")) 
+        :
         (Navigation.navigate('SignIn'), console.log("USer ID doit de connecter"))
-        : (Navigation.navigate('Paiement'), console.log("User est connecter"))
+        
        
     }
 
