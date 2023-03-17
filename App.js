@@ -4,7 +4,7 @@ import { StyleSheet, Text, View } from 'react-native';
 
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { createDrawerNavigator } from '@react-navigation/drawer';
+import { createDrawerNavigator, DrawerContentScrollView, DrawerItemList, DrawerItem } from '@react-navigation/drawer';
 
 // import { createDrawerNavigator } from '@react-navigation/drawer';
 import tw from "twrnc"
@@ -33,35 +33,35 @@ const HomeStack = createNativeStackNavigator()
     )
   }
 
+  function LienDrawerContent (props) {
+    return (
+      <DrawerContentScrollView {...props} >
+        <DrawerItem label="Setting" onPress={() => props.navigation.navigate("Setting")} style={{ borderBottomWidth: 1, borderBottomColor: "gray", backgroundColor: "white"}} 
+        labelStyle={{ fontSize: 18, fontWeight: "800", fontFamily: "serif"}} />
+        {/* <DrawerItem label="Pappa" onPress={() => alert('Link papapa')} /> */}
+        <DrawerItem label="rrrrr" onPress={() => alert('Link  rrrr')} />
+    </DrawerContentScrollView>
+    )
+  }
+
 
 
 const Drawer = createDrawerNavigator();
-function DrawerNavigation({ navigation}){
+function DrawerNavigation(){
   return (
-    <Drawer.Navigator screenOptions={{
+    <Drawer.Navigator 
+    screenOptions={{
       headerTransparent: true, 
       headerTitle: "",
-      drawerContentStyle:{
-        // backgroundColor: "withe"
-      },
-      drawerItemStyle: {
-        borderBottomWidth: 0.5,
-        borderColor: "#F27070",
-        
-      },
-      drawerLabelStyle: {
-        fontSize: 18,
-        color: "black",
-        // fontFamily: "serif",
-        fontWeight: "500"
-      },
-      drawerActiveTintColor: "",
-      drawerActiveBackgroundColor: ""
-    }}>
+      
+    }}
+    useLegacyImplementation
+    drawerContent={(props) => <LienDrawerContent {...props} />}
+    >
         <Drawer.Screen name="Home-s" component={HomeScreen} options={{
           title: "Accueil"
         }}/>
-        <Drawer.Screen name="Setting" component={Setting}/>
+        {/* <Drawer.Screen name="Setting" component={Setting}/> */}
         {/* <Drawer.Screen name="eeee" /> */}
         {/* <HomeStack.Screen name="Details" component={DetailView} options={{ headerShown: false, }}/>
         <HomeStack.Screen name="Reservation" component={Reservation} options={{ headerShown: false, }}/>
