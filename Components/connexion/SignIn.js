@@ -93,7 +93,11 @@ const SignIn = () => {
             <View style={tw`h-full justify-center`}>
                 <View style={tw`items-center`}>
 
-                    <Text onPress={()=> getMessage()}> connexion</Text>
+                    <View style={tw`mb-10 `}>
+                        <Text onPress={()=> getMessage()} style={{fontSize: 29, color: "red", fontWeight: "500"}}> connexion</Text>
+                    </View>
+                    
+
                     <PhoneInput 
                     // ref={PhoneInput}
                     defaultCode="CI"
