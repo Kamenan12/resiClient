@@ -36,7 +36,7 @@ const HomeStack = createNativeStackNavigator()
 
 
 const Drawer = createDrawerNavigator();
-function DrawerNavigation(){
+function DrawerNavigation({ navigation}){
   return (
     <Drawer.Navigator screenOptions={{
       headerTransparent: true, 
@@ -90,6 +90,7 @@ export default function App() {
         <Stack.Screen name="SignIn" component={SignIn} options={{ headerShown: false, }}/>
         <Stack.Screen name="Villes" component={Villes} options={{ headerShown: false, }}/>
         <Stack.Screen name="Communes" component={Communes} options={{ headerShown: false, }}/>
+        <Stack.Screen name="Setting" component={Setting} options={{ headerShown: false, }}/>
       </Stack.Navigator>
       {/* <Drawer.Navigator initialRouteName='Home-G' screenOptions={{
         headerTransparent: true, 
