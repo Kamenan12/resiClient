@@ -94,7 +94,7 @@ const SignIn = () => {
                 <View style={tw`items-center`}>
 
                     <View style={tw`mb-10 `}>
-                        <Text onPress={()=> getMessage()} style={{fontSize: 29, color: "red", fontWeight: "500"}}> connexion</Text>
+                        <Text onPress={()=> getMessage()} style={{fontSize: 32, color: "red", fontWeight: "500"}}> connexion</Text>
                     </View>
                     
 
