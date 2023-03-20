@@ -15,6 +15,7 @@ import { Button, Input } from "@rneui/themed";
 const SignIn = () => {
         const navigation = useNavigation()
         const [number, setNumber] = useState('')
+        const [step, setStep] = useState(1)
         const recaptchaVerifier = useRef(null)
         const [otpEnvoyer, setOtpEnvoyer] = useState(false)
         const [verificationId, setVerificationId] = useState()
@@ -22,6 +23,10 @@ const SignIn = () => {
         
         
 
+
+        const Suivant = () => {
+            setStep(step + 1)
+        }
     const VerficationOtp = async() => {
         try {
             const credential = PhoneAuthProvider.credential(verificationId, verificationCode);
@@ -90,69 +95,88 @@ const SignIn = () => {
 
     return (
         <>
-            <View style={tw`h-full justify-center`}>
-                <View style={tw`items-center`}>
+            {(() => {
+                switch (step) {
+                    case 1:
+                        return (
+                                <View style={tw`h-full justify-center`}>
+                                    <View style={tw`items-center`}>
 
-                    <View style={tw`mb-10 `}>
-                        <Text onPress={()=> getMessage()} style={{fontSize: 29, color: "red", fontWeight: "500"}}> connexion</Text>
-                    </View>
-                    
+                                        <View style={tw`mb-10 `}>
+                                            <Text onPress={()=> getMessage()} style={{fontSize: 29, color: "red", fontWeight: "500"}}> connexion</Text>
+                                        </View>
+                                        
 
-                    <PhoneInput 
-                    // ref={PhoneInput}
-                    defaultCode="CI"
-                    value={number}
-                    onChangeFormattedText={(text) => setNumber(text)}
-                    placeholder="Entrez numero"
+                                        <PhoneInput 
+                                        // ref={PhoneInput}
+                                        defaultCode="CI"
+                                        value={number}
+                                        onChangeFormattedText={(text) => setNumber(text)}
+                                        placeholder="Entrez numero"
 
-                    />
-                    {/* <Text> {number}</Text> */}
-                    <Button 
-                    onPress={()=> getRec()}
-                    title="Envoyez le code"
-                    buttonStyle={[
-                        tw`bg-red-500 mt-2`
-                    ]}
-                    />
-                    {/* <Text onPress={()=> getRec()}>Touche</Text> */}
-                </View>
-                    {/* <View>
-                        <Text onPress={() => getRecap()}>dddydyy</Text>
-                    </View> */}
-                    <View style={tw`items-center mt-5`}>
-                        <Input 
-                        containerStyle={{
-                            width: 300,
-                            height: 44,
-                            backgroundColor: "white"
-                        }}
-                        inputContainerStyle={{
-                            borderWidth: 0,
-                            borderBottomWidth: 0,
+                                        />
+                                        {/* <Text> {number}</Text> */}
+                                        <Button 
+                                        onPress={()=> getRec()}
+                                        title="Envoyez le code"
+                                        buttonStyle={[
+                                            tw`bg-red-500 mt-2`
+                                        ]}
+                                        />
+                                        {/* <Text onPress={()=> getRec()}>Touche</Text> */}
+                                    </View>
+                                        {/* <View>
+                                            <Text onPress={() => getRecap()}>dddydyy</Text>
+                                        </View> */}
+                                        <View style={tw`items-center mt-5`}>
+                                            <Input 
+                                            containerStyle={{
+                                                width: 300,
+                                                height: 44,
+                                                backgroundColor: "white"
+                                            }}
+                                            inputContainerStyle={{
+                                                borderWidth: 0,
+                                                borderBottomWidth: 0,
 
-                        }}
-                        keyboardType="numeric"
-                        onChangeText={setVerificationCode}
-                        placeholder="OTP code"
-                        />
-                        {/* <Text>{verificationCode}</Text> */}
-                    <Button 
-                    title="Verification OTP"
-                    // disabled={!verificationId}
-                    buttonStyle={[
-                        tw`w-50 mt-2`
-                    ]}
-                    onPress={()=> VerficationOtp()}
-                    />
-                    </View>
+                                            }}
+                                            keyboardType="numeric"
+                                            onChangeText={setVerificationCode}
+                                            placeholder="OTP code"
+                                            />
+                                            {/* <Text>{verificationCode}</Text> */}
+                                        <Button 
+                                        title="Verification OTP"
+                                        // disabled={!verificationId}
+                                        buttonStyle={[
+                                            tw`w-50 mt-2`
+                                        ]}
+                                        onPress={()=> Suivant()}
+                                        />
+                                        </View>
 
-                <FirebaseRecaptchaVerifierModal 
-                    ref={recaptchaVerifier}
-                    firebaseConfig={firebaseConfig}
-                    // attemptInvisibleVerification={true}
-                />
-                
-            </View>
+                                    <FirebaseRecaptchaVerifierModal 
+                                        ref={recaptchaVerifier}
+                                        firebaseConfig={firebaseConfig}
+                                        // attemptInvisibleVerification={true}
+                                    />
+                                    
+                                </View>
+                        );
+                    case 2: 
+                        return (
+                            <View style={tw`mt-20 bg-red-500`}>
+                                <Text>Pages 2</Text>
+                            </View>
+                        );
+                    default: 
+                        return (
+                            <View>
+                                <Text> Defaulte</Text>
+                            </View>
+                        )
+                }
+            }) ()}
         </>
         
     )
