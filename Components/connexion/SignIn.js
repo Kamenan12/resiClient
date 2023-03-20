@@ -165,8 +165,38 @@ const SignIn = () => {
                         );
                     case 2: 
                         return (
-                            <View style={tw`mt-20 bg-red-500`}>
-                                <Text>Pages 2</Text>
+                            <View style={tw`h-full items-center justify-center`}>
+                               <View>
+                                <Input 
+                                containerStyle={[tw`bg-white rounded-lg w-70 h-10`]}
+                                inputContainerStyle={{
+                                    borderWidth: 0,
+                                    borderBottomWidth: 0,
+
+                                }}
+                                placeholder="Nom"
+                                />
+                                <Input 
+                                containerStyle={[tw`bg-white rounded-lg w-70 h-10 mt-7`]}
+                                inputContainerStyle={{
+                                    borderWidth: 0,
+                                    borderBottomWidth: 0,
+
+                                }}
+                                placeholder="Prenom"
+                                />
+                                <View style={tw`items-center`}>
+
+                                    <Button 
+                                        title="Validation"
+                                        // disabled={!verificationId}
+                                        buttonStyle={[
+                                            tw`w-50 mt-2`
+                                        ]}
+                                        onPress={()=> Suivant()}
+                                        />
+                                </View>
+                               </View>
                             </View>
                         );
                     default: 
