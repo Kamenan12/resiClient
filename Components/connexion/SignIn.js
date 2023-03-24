@@ -5,6 +5,7 @@ import {auth, firebaseConfig} from "../../firebase"
 import {signInWithPhoneNumber, PhoneAuthProvider, signInWithCredential} from "firebase/auth";
 import { FirebaseRecaptchaVerifierModal, FirebaseRecaptchaBanner } from 'expo-firebase-recaptcha';
 // import { checkIfHasSMSPermission, requestReadSMSPermission, startReadSMS } from "@maniac-tech/react-native-expo-read-sms"
+import { useForm, Controller } from "react-hook-form";
 import { useNavigation } from "@react-navigation/native";
 import PhoneInput from "react-native-phone-number-input";
 import tw from 'twrnc'
@@ -22,7 +23,17 @@ const SignIn = () => {
         const [verificationCode, setVerificationCode] = useState()
         
         
+        const { register, watch, setValue, handleSubmit, control, reset, formState: { errors } } = useForm({
+            defaultValues: {
+              Nom: '',
+              Prenom: '',
+              
+            }
+          });
 
+
+        const Watch_Nom = watch('Nom');
+        const Watch_Prenom = watch('Prenom');
 
         const Suivant = () => {
             setStep(step + 1)
@@ -47,40 +58,19 @@ const SignIn = () => {
                 number, recaptchaVerifier.current
             );
                 setVerificationId(verificationId);
-               alert("les code a ete envoyer sr votre telphoene")
+               alert("les code a ete envoyer sr votre telphoene");
+               setOtpEnvoyer(true)
         } catch (err) {
-            console.log("erre", err.message)
+            console.log("erre", err.message);
+            alert("Verifier votre connexion")
         }
-        // try {
-        //     signInWithPhoneNumber(auth, number, recaptchaVerifier)
-        //     .then((confirmationResult) => {
-        //     // SMS sent. Prompt user to type the code from the message, then sign the
-        //     // user in with confirmationResult.confirm(code).
-        //     window.confirmationResult = confirmationResult;
-        //     // ...
-        //     }).catch((error) => {
-        //     // Error; SMS not sent
-        //     // ...
-        //     });
-        // }
         
-
-        //     console.log("numb", number)
-        // try {
-        //     const response = await setUpRecaptch(number);
-        //     console.log("rrrrr", response)
-        // } catch (error) {
-        //     console.log("eerppr", error)
-        // }
-
-        // try {
-        //     const response = await setUpRecaptch();
-        //     console.log("reponse", response)
-        // } catch (error) {
-        //     console.log("error", error)
-        // }
     }
     
+
+    const Connexion = (data) => {
+        console.log(data)
+    }
  
 
     
@@ -128,6 +118,8 @@ const SignIn = () => {
                                         {/* <View>
                                             <Text onPress={() => getRecap()}>dddydyy</Text>
                                         </View> */}
+                                        {
+                                        otpEnvoyer === true ? (
                                         <View style={tw`items-center mt-5`}>
                                             <Input 
                                             containerStyle={{
@@ -154,6 +146,9 @@ const SignIn = () => {
                                         onPress={()=> Suivant()}
                                         />
                                         </View>
+                                            ) :
+                                            null
+                                        }
 
                                     <FirebaseRecaptchaVerifierModal 
                                         ref={recaptchaVerifier}
@@ -167,34 +162,75 @@ const SignIn = () => {
                         return (
                             <View style={tw`h-full items-center justify-center`}>
                                <View>
-                                <Input 
-                                containerStyle={[tw`bg-white rounded-lg w-70 h-10`]}
-                                inputContainerStyle={{
-                                    borderWidth: 0,
-                                    borderBottomWidth: 0,
+                                <View style={tw`pb-5`}>
 
-                                }}
-                                placeholder="Nom"
-                                />
-                                <Input 
-                                containerStyle={[tw`bg-white rounded-lg w-70 h-10 mt-7`]}
-                                inputContainerStyle={{
-                                    borderWidth: 0,
-                                    borderBottomWidth: 0,
-
-                                }}
-                                placeholder="Prenom"
-                                />
+                                    <Controller 
+                                    control={control}
+                                    render={({field: { onChange, onBlur, value}}) => (
+                                        
+                                        <Input 
+                                        containerStyle={errors.Nom ? [tw`bg-white rounded-lg w-70 h-12 border border-red-300`] : [tw`bg-white rounded-lg w-70 h-12`] }
+                                        inputContainerStyle={{
+                                            borderWidth: 0,
+                                            borderBottomWidth: 0,
+                                        
+                                        }} 
+                                        inputStyle={{
+                                            fontSize: 25
+                                        }}
+                                        
+                                        placeholder="Nom"
+                                        onChangeText={value => onChange(value)}
+                                        />
+                                        
+                                    )}
+                                    name="Nom"
+                                    rules={{required: true, minLength: 2}}
+                                    />
+                                    {errors.Nom?.type === "required" && <Text style={{ color: "red", fontSize: 17}}>*Le Nom est obligatoire *</Text>}
+                                    {/* {errors.Nom?.type === "minLength" && <Text style={{ color: "black", fontSize: 17}}>*Le Nom est obligatoire *</Text>} */}
+                                    {/* <Text> {Watch_Nom.length}</Text> */}
+                                    {
+                                        // Watch_Nom.length === 0 ? ( <Text style={{ color: "red", fontSize: 12}}>*Le Nom est obligatoire *</Text>) : null
+                                    }
+                                </View>
+                                <View>
+                                    <Controller 
+                                        control={control}
+                                        render={({field: { onChange, onBlur, value}}) => (
+                                            
+                                            <Input 
+                                            containerStyle={errors.Prenom ? [tw`bg-white rounded-lg w-70 h-12 border border-red-300`] : [tw`bg-white rounded-lg w-70 h-12`] }
+                                            inputContainerStyle={{
+                                                borderWidth: 0,
+                                                borderBottomWidth: 0,
+        
+                                            }}
+                                            inputStyle={{
+                                                fontSize: 25
+                                            }}
+                                            placeholder="Prenom"
+                                            onChangeText={value => onChange(value)}
+                                            />
+                                            
+                                        )}
+                                        name="Prenom"
+                                        rules={{required: true, minLength: 2}}
+                                        />
+                                        {errors.Prenom?.type === "required" && <Text style={{ color: "red", fontSize: 17}}>*Le Prenom est obligatoire *</Text>}
+                                </View>
                                 <View style={tw`items-center`}>
-
+                                    
+                                    
                                     <Button 
                                         title="Validation"
                                         // disabled={!verificationId}
                                         buttonStyle={[
-                                            tw`w-50 mt-2`
-                                        ]}
-                                        onPress={()=> Suivant()}
-                                        />
+                                            tw`w-50 mt-2 rounded-xl mt-5`
+                                        ]} 
+                                        // disabled
+                                        onPress={handleSubmit(Connexion)}
+                                    />
                                 </View>
                                </View>
                             </View>
