@@ -8,8 +8,10 @@ import { FirebaseRecaptchaVerifierModal, FirebaseRecaptchaBanner } from 'expo-fi
 import { useForm, Controller } from "react-hook-form";
 import { useNavigation } from "@react-navigation/native";
 import PhoneInput from "react-native-phone-number-input";
-import tw from 'twrnc'
+import { db } from "../../firebase";
+import { addDoc, collection, serverTimestamp } from "@firebase/firestore";
 import { Button, Input } from "@rneui/themed";
+import tw from 'twrnc'
 
 
 
@@ -38,10 +40,25 @@ const SignIn = () => {
         const Suivant = () => {
             setStep(step + 1)
         }
-    const VerficationOtp = async() => {
+    const VerficationOtp = async(data) => {
         try {
             const credential = PhoneAuthProvider.credential(verificationId, verificationCode);
-            await signInWithCredential(auth, credential); 
+            await signInWithCredential(auth, credential).then(async (credential) => {
+                const user = credential.user;
+
+                try {
+                    const docRef = await addDoc(collection(db, "users"), {
+                        user: user.uid, 
+                        nom: data.Nom,
+                        prenom: data.Prenom,
+                        Numero: number,
+                        date_create: serverTimestamp()
+                    })
+                    console.log("Use ajouter a la collection", docRef.id)
+                } catch (e) {
+                    console.log("errer de creationd user")
+                }
+            }); 
             alert("user bien connecter")
           } catch (err) {
             alert ("errro", err);
@@ -69,7 +86,8 @@ const SignIn = () => {
     
 
     const Connexion = (data) => {
-        console.log(data)
+        VerficationOtp(data);
+        console.log("tout est ok")
     }
  
 
