@@ -41,7 +41,7 @@ const SignIn = () => {
     const VerficationOtp = async() => {
         try {
             const credential = PhoneAuthProvider.credential(verificationId, verificationCode);
-            await signInWithCredential(auth, credential);
+            await signInWithCredential(auth, credential); 
             alert("user bien connecter")
           } catch (err) {
             alert ("errro", err);
