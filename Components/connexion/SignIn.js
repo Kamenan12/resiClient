@@ -19,8 +19,8 @@ const SignIn = () => {
         const [step, setStep] = useState(1)
         const recaptchaVerifier = useRef(null)
         const [otpEnvoyer, setOtpEnvoyer] = useState(false)
-        const [verificationId, setVerificationId] = useState()
-        const [verificationCode, setVerificationCode] = useState()
+        const [verificationId, setVerificationId] = useState('')
+        const [verificationCode, setVerificationCode] = useState('')
         
         
         const { register, watch, setValue, handleSubmit, control, reset, formState: { errors } } = useForm({
@@ -93,7 +93,7 @@ const SignIn = () => {
                                     <View style={tw`items-center`}>
 
                                         <View style={tw`mb-10 `}>
-                                            <Text onPress={()=> getMessage()} style={{fontSize: 29, color: "red", fontWeight: "500"}}> connexion</Text>
+                                            <Text style={{fontSize: 29, color: "red", fontWeight: "500"}}> connexion</Text>
                                         </View>
                                         
 
@@ -115,9 +115,7 @@ const SignIn = () => {
                                         />
                                         {/* <Text onPress={()=> getRec()}>Touche</Text> */}
                                     </View>
-                                        {/* <View>
-                                            <Text onPress={() => getRecap()}>dddydyy</Text>
-                                        </View> */}
+                                        
                                         {
                                         otpEnvoyer === true ? (
                                         <View style={tw`items-center mt-5`}>
@@ -137,18 +135,33 @@ const SignIn = () => {
                                             placeholder="OTP code"
                                             />
                                             {/* <Text>{verificationCode}</Text> */}
-                                        <Button 
-                                        title="Verification OTP"
-                                        // disabled={!verificationId}
-                                        buttonStyle={[
-                                            tw`w-50 mt-2`
-                                        ]}
-                                        onPress={()=> Suivant()}
-                                        />
+                                            {/* <Text>{verificationCode.length} </Text> */}
+                                            {
+                                                verificationCode.length === 6 ? (
+
+                                                    <Button 
+                                                    title="Verification OTP"
+                                                    // disabled={!verificationId}
+                                                    buttonStyle={[
+                                                        tw`w-50 mt-2`
+                                                    ]}
+                                                    onPress={()=> Suivant()}
+                                                    />
+                                                ): (
+                                                    <Button 
+                                                    title="Verification OTP"
+                                                    disabled
+                                                    buttonStyle={[
+                                                        tw`w-50 mt-2`
+                                                    ]}
+                                                    onPress={()=> Suivant()}
+                                                    />
+                                                )
+                                            }
                                         </View>
-                                            ) :
+                                             ) :
                                             null
-                                        }
+                                        } 
 
                                     <FirebaseRecaptchaVerifierModal 
                                         ref={recaptchaVerifier}
