@@ -9,9 +9,10 @@ import { useForm, Controller } from "react-hook-form";
 import { useNavigation } from "@react-navigation/native";
 import PhoneInput from "react-native-phone-number-input";
 import { db } from "../../firebase";
-import { addDoc, collection, serverTimestamp } from "@firebase/firestore";
+import { addDoc, collection, doc, getDoc, onSnapshot, query, serverTimestamp, where } from "@firebase/firestore";
 import { Button, Input } from "@rneui/themed";
 import tw from 'twrnc'
+import { async } from "@firebase/util";
 
 
 
@@ -66,8 +67,26 @@ const SignIn = () => {
     }
     
 
+    const VerificationUser = async() => {
+        
+        const us = []
+        let q = query(collection(db, "users"), where("Numero", "==", number));
+        onSnapshot(q, (queryUser) => {
+            const u = []
+            queryUser.forEach((doc) => {
+                u.push(doc.data())
+            })
+              if(u.length >= 1){
+                alert("numero deja utilise!")
+            } else  { 
+                getRec()
+                } 
+        })
+    } 
     const getRec = async() => {
+
         // if (number !== "" || number !== undefined)
+
         try {
             const phoneProvid = new PhoneAuthProvider(auth)
 
@@ -92,6 +111,9 @@ const SignIn = () => {
  
 
     
+    // useEffect(() => {
+    //     getRec()
+    // })
     // useEffect(() => {
     //     const unsubscribe = auth.onAuthStateChanged(user => {
     //         if (user) {
@@ -125,7 +147,7 @@ const SignIn = () => {
                                         />
                                         {/* <Text> {number}</Text> */}
                                         <Button 
-                                        onPress={()=> getRec()}
+                                        onPress={()=> VerificationUser()}
                                         title="Envoyez le code"
                                         buttonStyle={[
                                             tw`bg-red-500 mt-2`
