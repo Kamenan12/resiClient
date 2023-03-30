@@ -7,7 +7,10 @@ import { View, Text, StyleSheet,  } from "react-native";
 const Login = () => {
     return (
         <View>
-            Testst de Login
+            <Text>
+
+                Testst de Login
+            </Text>
         </View>
     )
 }

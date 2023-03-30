@@ -41,7 +41,7 @@ const SignIn = () => {
         const Suivant = () => {
             setStep(step + 1)
         }
-    const VerficationOtp = async(data) => {
+    const VerficationOtpNewUser = async(data) => {
         try {
             const credential = PhoneAuthProvider.credential(verificationId, verificationCode);
             await signInWithCredential(auth, credential).then(async (credential) => {
@@ -60,29 +60,26 @@ const SignIn = () => {
                     console.log("errer de creationd user")
                 }
             }); 
+            // alert("user bien connecter")
+            navigation.navigate("Home-G")
+          } catch (err) {
+            alert ("errro", err);
+          }
+    }
+    const VerficationOtp = async(data) => {
+        try {
+            const credential = PhoneAuthProvider.credential(verificationId, verificationCode);
+            await signInWithCredential(auth, credential).then(async (credential) => {
+                const user = credential.user;
+            }); 
             alert("user bien connecter")
+            navigation.navigate("Home-G")
           } catch (err) {
             alert ("errro", err);
           }
     }
     
 
-    const VerificationUser = async() => {
-        
-        const us = []
-        let q = query(collection(db, "users"), where("Numero", "==", number));
-        onSnapshot(q, (queryUser) => {
-            const u = []
-            queryUser.forEach((doc) => {
-                u.push(doc.data())
-            })
-              if(u.length >= 1){
-                alert("numero deja utilise!")
-            } else  { 
-                getRec()
-                } 
-        })
-    } 
     const getRec = async() => {
 
         // if (number !== "" || number !== undefined)
@@ -102,10 +99,28 @@ const SignIn = () => {
         }
         
     }
+
+    const VerificationUser = async() => {
+        
+        const us = []
+        let q = query(collection(db, "users"), where("Numero", "==", number));
+        onSnapshot(q, (queryUser) => {
+            const u = []
+            queryUser.forEach((doc) => {
+                u.push(doc.data())
+            })
+              if(u.length >= 1){
+                VerficationOtp()
+            } else  { 
+                Suivant()
+                } 
+        })
+    } 
+    
     
 
     const Connexion = (data) => {
-        VerficationOtp(data);
+        VerficationOtpNewUser(data);
         console.log("tout est ok")
     }
  
@@ -147,7 +162,7 @@ const SignIn = () => {
                                         />
                                         {/* <Text> {number}</Text> */}
                                         <Button 
-                                        onPress={()=> VerificationUser()}
+                                        onPress={()=> getRec()}
                                         title="Envoyez le code"
                                         buttonStyle={[
                                             tw`bg-red-500 mt-2`
@@ -185,7 +200,7 @@ const SignIn = () => {
                                                     buttonStyle={[
                                                         tw`w-50 mt-2`
                                                     ]}
-                                                    onPress={()=> Suivant()}
+                                                    onPress={()=> VerificationUser()}
                                                     />
                                                 ): (
                                                     <Button 
@@ -194,7 +209,7 @@ const SignIn = () => {
                                                     buttonStyle={[
                                                         tw`w-50 mt-2`
                                                     ]}
-                                                    onPress={()=> Suivant()}
+                                                    onPress={()=> VerificationUser()}
                                                     />
                                                 )
                                             }

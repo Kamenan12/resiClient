@@ -20,7 +20,7 @@ const Setting = () => {
     }
     return (
         <View style={tw`items-center justify-center h-full`}>
-            <Text>
+            
                 {
                     user ? <Button 
                     title="Deconnexion"
@@ -29,16 +29,22 @@ const Setting = () => {
                     }
                     onPress={() => Decon()}
                 />  : 
-                <Button 
-                    title="Connexion"
-                    buttonStyle={
-                        tw`bg-red-500`
-                    }
-                    onPress={() => navigation.navigate('SignIn')}
-                />
+                (
+                    <View style={tw`content-between`} >
+                        
+                        <Button 
+                            title="Connexion"
+                            buttonStyle={
+                                tw`bg-red-500`
+                            }
+                            onPress={() => navigation.navigate('SignIn')}
+                        />
+                        
+                    </View>
+                )
                 }
                 
-            </Text>
+            
         </View>
     )
 }
