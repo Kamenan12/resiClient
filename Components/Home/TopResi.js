@@ -5,6 +5,7 @@ import { collection, onSnapshot, query, where,orderBy } from "firebase/firestore
 import { useNavigation } from "@react-navigation/native";
 
 import { Icon } from "@rneui/themed";
+import { Skeleton } from '@rneui/themed'
 import tw from 'twrnc'
 import Details from "./details/DetailView";
 
@@ -73,21 +74,103 @@ const TopResi = () => {
             </View>
             <View style={tw`flex-row h-80 py-2`}>
                 <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-                    {
+                    {fullResi.length == 0 ? 
+                    (<Skel />) : 
+                    (
                         fullResi.map((R, index) => (
                             R.map( (resi, index2) => (
                                 <ResiTop resi={resi} key={index2} details={details} key2={index}/>
                             ))
-
+    
                         ))
+                    )
+                        
                     }
                 </ScrollView>
                 {/* <Text>{fullResi.length}</Text> */}
+                {/* <Skel /> */}
             </View>
         </View>
     )
 }
 
+const Skel = () => {
+
+    return (
+        <>
+            <View style={tw`rounded-3xl shadow-lg bg-white mx-2`}>
+                    
+                    <Skeleton width={260} height={210} style={tw`rounded-t-3xl`} />
+                    
+                    <View style={tw`px-3 pt-2`}>
+                    
+                        <View style={tw`flex-row justify-between`}>
+                            <View>
+                                
+                                <Skeleton height={15} width={150} />
+                            </View>
+                            <View style={tw`flex-row`}>
+                                
+                                <Skeleton width={50} height={15} />
+                                
+                            </View>
+                        </View>
+                        <View style={tw`flex-row pt-2`}>
+                            <Skeleton width={170} height={15} />
+                            
+                            
+                        </View>
+                        
+                        
+                        <View style={tw`flex-row pt-2`}>
+                            
+                            <View style={tw`flex-row items-center`}>
+                                <Skeleton circle height={30} width={30} />
+                                <Skeleton circle height={30} width={30} />
+                                <Skeleton circle height={30} width={30} />
+
+                            </View>
+                        </View>
+                    </View>
+            </View>
+            <View style={tw`rounded-3xl shadow-lg bg-white`}>
+                    
+                    <Skeleton width={260} height={210} style={tw`rounded-t-3xl`} />
+                    
+                    <View style={tw`px-3 pt-2`}>
+                    
+                        <View style={tw`flex-row justify-between`}>
+                            <View>
+                                
+                                <Skeleton height={15} width={150} />
+                            </View>
+                            <View style={tw`flex-row`}>
+                                
+                                <Skeleton width={50} height={15} />
+                                
+                            </View>
+                        </View>
+                        <View style={tw`flex-row pt-2`}>
+                            <Skeleton width={170} height={15} />
+                            
+                            
+                        </View>
+                        
+                        
+                        <View style={tw`flex-row pt-2`}>
+                            
+                            <View style={tw`flex-row items-center`}>
+                                <Skeleton circle height={30} width={30} />
+                                <Skeleton circle height={30} width={30} />
+                                <Skeleton circle height={30} width={30} />
+
+                            </View>
+                        </View>
+                    </View>
+            </View>
+        </>
+    )
+}
 
 const ResiTop = (props) => {
         
