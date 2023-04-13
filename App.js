@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useEffect, useState } from "react";
 import 'react-native-gesture-handler';
 import { StyleSheet, Text, View } from 'react-native';
 
@@ -7,6 +8,10 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createDrawerNavigator, DrawerContentScrollView, DrawerItemList, DrawerItem } from '@react-navigation/drawer';
 
 // import { createDrawerNavigator } from '@react-navigation/drawer';
+import { Icon } from '@rneui/themed';
+import { auth } from './firebase';
+import { db } from './firebase';
+import { collection, getDocs, where, query, onSnapshot } from "firebase/firestore";
 import tw from "twrnc"
 import HomeView from './Components/Home/HomeViews';
 import DetailView from './Components/Home/details/DetailView';
@@ -35,10 +40,12 @@ const HomeStack = createNativeStackNavigator()
   }
 
   function LienDrawerContent (props) {
+    
     return (
       <DrawerContentScrollView {...props} >
-        <DrawerItem label="Setting" onPress={() => props.navigation.navigate("Setting")} style={{ borderBottomWidth: 1, borderBottomColor: "gray", backgroundColor: "white"}} 
-        labelStyle={{ fontSize: 18, fontWeight: "800", fontFamily: "serif"}} />
+        <DrawerItem label="Seting" onPress={() => props.navigation.navigate("Setting")} style={{ borderBottomWidth: 1, borderBottomColor: "gray", backgroundColor: "white"}} 
+        labelStyle={{ fontSize: 18, fontWeight: "800", fontFamily: "serif"}}
+        icon={() => <Icon name='user' type='evilicon' color="black" size={50} />} />
         {/* <DrawerItem label="Pappa" onPress={() => alert('Link papapa')} /> */}
         <DrawerItem label="rrrrr" onPress={() => alert('Link  rrrr')} />
     </DrawerContentScrollView>
@@ -81,6 +88,23 @@ const Stack = createNativeStackNavigator();
 
 
 export default function App() {
+  const user = auth.currentUser;
+  const [userDoc, setUserDoc] = useState();
+  const getUserDoc = () => {
+    const q = query(collection(db, "users"), where("user", "==", user.uid))
+    const unsubscribre = onSnapshot(q, (querySnapshot) => {
+      const dc = [];
+      querySnapshot.forEach((doc) => {
+        dc.push(doc.data())
+        console.log("les doccc", dc)
+      });
+      setUserDoc(dc[0])
+    })
+  }
+
+  useEffect(() => {
+    getUserDoc();
+}, [])
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName='Home-G'>
