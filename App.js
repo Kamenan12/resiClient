@@ -81,13 +81,40 @@ const HomeStack = createNativeStackNavigator()
       // getUserDoc();
   }, [])
     return ( 
-      <DrawerContentScrollView {...props} >
-        <DrawerItem label={userDoc ? userDoc.nom : "setiing"} onPress={() => props.navigation.navigate("Setting")} style={{ borderBottomWidth: 1, borderBottomColor: "gray", backgroundColor: "white"}} 
+      <DrawerContentScrollView {...props} >     
+      {
+        userDoc ? (
+          <>      
+            <DrawerItem label={() => <Text style={{fontSize: 19, fontWeight: "500" }}> MON PROFIL</Text>}
+            onPress={() => props.navigation.navigate("Setting")} 
+            // style={{ borderBottomWidth: 1, borderBottomColor: "gray", backgroundColor: "white"}} 
+            // labelStyle={{ fontSize: 18, fontWeight: "800", fontFamily: "serif"}}
+            // icon={() => <Icon name='user' type='evilicon' color="black" size={50} />}
+             />
+            {/* <DrawerItem label="Pappa" onPress={() => alert('Link papapa')} /> */}
+            <DrawerItem label={() => <Text style={{fontSize: 19, fontWeight: "500" }}> MES FAVORIES</Text>} onPress={() => alert('MES fAVORIE')} />
+            <DrawerItem label={() => <Text style={{fontSize: 19, fontWeight: "500" }}> MES RESERVATION</Text>} onPress={() => alert('MES RESERVATION')} />
+            <DrawerItem label={() => <Text style={{fontSize: 19, fontWeight: "500" }}> MES BONUS</Text>} onPress={() => alert('MES BONUS')} />
+          </>
+        ) :
+        (
+          <>
+            <DrawerItem label={() => <Text style={{fontSize: 20, fontWeight: "500" }}> INSCRIPTION/CONNEXION</Text>} 
+            onPress={() => props.navigation.navigate("SignIn")} 
+            icon={() => <Icon name='user' type='evilicon' color="black" size={50} />} />
+            {/* <DrawerItem label="Pappa" onPress={() => alert('Link papapa')} /> */}
+            <DrawerItem label={() => <Text style={{fontSize: 20, fontWeight: "500" }}> INFORMATION</Text>} onPress={() => alert('Link  rrrr')} />
+          </>
+        )
+      }   
+        {/* <DrawerItem label={userDoc ? userDoc.nom : "setiing"} 
+        onPress={() => props.navigation.navigate("Setting")} 
+        style={{ borderBottomWidth: 1, borderBottomColor: "gray", backgroundColor: "white"}} 
         labelStyle={{ fontSize: 18, fontWeight: "800", fontFamily: "serif"}}
-        icon={() => <Icon name='user' type='evilicon' color="black" size={50} />} />
+        icon={() => <Icon name='user' type='evilicon' color="black" size={50} />} /> */}
         {/* <DrawerItem label="Pappa" onPress={() => alert('Link papapa')} /> */}
-        <DrawerItem label="rrrrr" onPress={() => alert('Link  rrrr')} />
-    </DrawerContentScrollView>
+        {/* <DrawerItem label="rrrrr" onPress={() => alert('Link  rrrr')} /> */}
+      </DrawerContentScrollView>
     )
   }
 
