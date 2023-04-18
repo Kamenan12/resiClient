@@ -24,8 +24,11 @@ import Villes from './Components/Home/villes/Villes';
 import Communes from './Components/Home/villes/Commune';
 import Login from './Components/connexion/Login';
 import NumPaiement from './Components/Home/Reservation/NumPaiement';
+import { Provider } from 'react-redux';
+import { store } from './store/store';
 
-
+import { useSelector, useDispatch } from 'react-redux';
+import { getUSer } from './store/getUserSlice';
 
 
 
@@ -44,6 +47,8 @@ const HomeStack = createNativeStackNavigator()
 
     // const user = auth.currentUser
     const [userDoc, setUserDoc] = useState(); 
+    const UserSlice = useSelector((state) => state.user.value)
+    const dispatch = useDispatch()
 
     // const getUserDoc = async() => {
     //   if (user) {
@@ -96,6 +101,7 @@ const HomeStack = createNativeStackNavigator()
             <DrawerItem label={() => <Text style={{fontSize: 19, fontWeight: "500" }}> MES FAVORIES</Text>} onPress={() => alert('MES fAVORIE')} />
             <DrawerItem label={() => <Text style={{fontSize: 19, fontWeight: "500" }}> MES RESERVATION</Text>} onPress={() => alert('MES RESERVATION')} />
             <DrawerItem label={() => <Text style={{fontSize: 19, fontWeight: "500" }}> MES BONUS</Text>} onPress={() => alert('MES BONUS')} />
+            <DrawerItem label={() => <Text style={{fontSize: 19, fontWeight: "500" }}> {UserSlice}</Text>} onPress={() => dispatch(getUSer())} />
           </>
         ) :
         (
@@ -183,30 +189,33 @@ export default function App() {
   // }, [])
 
   return (
-    <NavigationContainer>
-      <Stack.Navigator initialRouteName='Home-G'>
-        <Stack.Screen name="Home-G" component={DrawerNavigation} options={{ headerShown: false, }} />
-        <Stack.Screen name="Details" component={DetailView} options={{ headerShown: false, }}/>
-        <Stack.Screen name="Reservation" component={Reservation} options={{ headerShown: false, }}/>
-        <Stack.Screen name="Paiement" component={Paiement} options={{ headerShown: false, }}/>
-        <Stack.Screen name="NumPaiement" component={NumPaiement} options={{ headerShown: false, }}/>
-        <Stack.Screen name="SignIn" component={SignIn} options={{ headerShown: false, }}/>
-        <Stack.Screen name="Login" component={Login} options={{ headerShown: false, }}/>
-        <Stack.Screen name="Villes" component={Villes} options={{ headerShown: false, }}/>
-        <Stack.Screen name="Communes" component={Communes} options={{ headerShown: false, }}/>
-        <Stack.Screen name="Setting" component={Setting} options={{ headerShown: false, }}/>
-      </Stack.Navigator>
-      {/* <Drawer.Navigator initialRouteName='Home-G' screenOptions={{
-        headerTransparent: true, 
-        headerTitle: "",
-        drawerContentStyle:{
-          
-        }
-      }} >
-        <Drawer.Screen name="Accueil" component={HomeScreen} /> 
-        <Drawer.Screen name="Awwwwww" component={HomeScreen} /> 
-      </Drawer.Navigator> */}
-    </NavigationContainer>
+    <Provider store={store}>
+
+      <NavigationContainer>
+        <Stack.Navigator initialRouteName='Home-G'>
+          <Stack.Screen name="Home-G" component={DrawerNavigation} options={{ headerShown: false, }} />
+          <Stack.Screen name="Details" component={DetailView} options={{ headerShown: false, }}/>
+          <Stack.Screen name="Reservation" component={Reservation} options={{ headerShown: false, }}/>
+          <Stack.Screen name="Paiement" component={Paiement} options={{ headerShown: false, }}/>
+          <Stack.Screen name="NumPaiement" component={NumPaiement} options={{ headerShown: false, }}/>
+          <Stack.Screen name="SignIn" component={SignIn} options={{ headerShown: false, }}/>
+          <Stack.Screen name="Login" component={Login} options={{ headerShown: false, }}/>
+          <Stack.Screen name="Villes" component={Villes} options={{ headerShown: false, }}/>
+          <Stack.Screen name="Communes" component={Communes} options={{ headerShown: false, }}/>
+          <Stack.Screen name="Setting" component={Setting} options={{ headerShown: false, }}/>
+        </Stack.Navigator>
+        {/* <Drawer.Navigator initialRouteName='Home-G' screenOptions={{
+          headerTransparent: true, 
+          headerTitle: "",
+          drawerContentStyle:{
+            
+          }
+        }} >
+          <Drawer.Screen name="Accueil" component={HomeScreen} /> 
+          <Drawer.Screen name="Awwwwww" component={HomeScreen} /> 
+        </Drawer.Navigator> */}
+      </NavigationContainer>
+    </Provider>
      
   );
 }
