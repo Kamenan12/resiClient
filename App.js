@@ -23,6 +23,7 @@ import Setting from './Components/Setting/SettingScreen';
 import Villes from './Components/Home/villes/Villes';
 import Communes from './Components/Home/villes/Commune';
 import Login from './Components/connexion/Login';
+import NumPaiement from './Components/Home/Reservation/NumPaiement';
 
 
 
@@ -188,6 +189,7 @@ export default function App() {
         <Stack.Screen name="Details" component={DetailView} options={{ headerShown: false, }}/>
         <Stack.Screen name="Reservation" component={Reservation} options={{ headerShown: false, }}/>
         <Stack.Screen name="Paiement" component={Paiement} options={{ headerShown: false, }}/>
+        <Stack.Screen name="NumPaiement" component={NumPaiement} options={{ headerShown: false, }}/>
         <Stack.Screen name="SignIn" component={SignIn} options={{ headerShown: false, }}/>
         <Stack.Screen name="Login" component={Login} options={{ headerShown: false, }}/>
         <Stack.Screen name="Villes" component={Villes} options={{ headerShown: false, }}/>

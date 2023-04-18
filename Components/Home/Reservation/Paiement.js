@@ -15,6 +15,12 @@ const Paiement = () => {
     const Navigation = useNavigation();
 
 
+
+    const AjoutNum = (methode) => {
+        Navigation.navigate("NumPaiement", {
+            methode: methode
+        })
+    }
    
     return (
         <>
@@ -25,7 +31,7 @@ const Paiement = () => {
                 </View>
                 {
                     ChoixPaiement.map((p, index) => (
-                        <ModePaiement methode={p} key={index} />
+                        <ModePaiement methode={p} key={index} navigue={AjoutNum}/>
                     ))
                 }
                 {/* <View style={tw`bg-white py-3 w-86 h-20 justify-center mb-2 flex-row rounded-lg`}>
@@ -46,7 +52,7 @@ const Paiement = () => {
 const ModePaiement = (props) => {
     const methode = props.methode
     return (
-        <TouchableOpacity >
+        <TouchableOpacity onPress={() => props.navigue(methode)}>
             <View style={tw`bg-white py-3 w-86 h-20 justify-between px-7 items-center mb-2 flex-row rounded-lg`}>
                 <View>
                     <Image source={methode.logo} style={tw`w-15 h-15`}/>
