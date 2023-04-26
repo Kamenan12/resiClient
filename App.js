@@ -45,9 +45,7 @@ const HomeStack = createNativeStackNavigator()
 
   function LienDrawerContent (props) { 
 
-    // const user = auth.currentUser
-    const [userDoc, setUserDoc] = useState(); 
-    const UserSlice = useSelector((state) => state.user.value)
+    const UserNumero = useSelector((state) => state.user.numero)
     const dispatch = useDispatch()
 
     // const getUserDoc = async() => {
@@ -77,43 +75,56 @@ const HomeStack = createNativeStackNavigator()
                 const dc = [];
                 querySnapshot.forEach((doc) => {
                   dc.push(doc.data())
-                  console.log("les doccc", dc)
+                  // console.log("les doccc", dc)
                 });
-                setUserDoc(dc[0])
+                // setUserDoc(dc[0])
+                dispatch(getUSer({
+                  numero: dc[0].Numero,
+                  nom: dc[0].nom,
+                  prenom: dc[0].prenom,
+                  user: dc[0].user
+                  // value: dc[0]
+                }))
               })
         }
     })
-    return unsubscribe
+    // return unsubscribe
       // getUserDoc();
+      // dispatch(getUSer())
   }, [])
+  // console.log("propreParaRout", props.initialParams)
     return ( 
       <DrawerContentScrollView {...props} >     
       {
-        userDoc ? (
-          <>      
-            <DrawerItem label={() => <Text style={{fontSize: 19, fontWeight: "500" }}> MON PROFIL</Text>}
-            onPress={() => props.navigation.navigate("Setting")} 
-            // style={{ borderBottomWidth: 1, borderBottomColor: "gray", backgroundColor: "white"}} 
-            // labelStyle={{ fontSize: 18, fontWeight: "800", fontFamily: "serif"}}
-            // icon={() => <Icon name='user' type='evilicon' color="black" size={50} />}
-             />
-            {/* <DrawerItem label="Pappa" onPress={() => alert('Link papapa')} /> */}
-            <DrawerItem label={() => <Text style={{fontSize: 19, fontWeight: "500" }}> MES FAVORIES</Text>} onPress={() => alert('MES fAVORIE')} />
-            <DrawerItem label={() => <Text style={{fontSize: 19, fontWeight: "500" }}> MES RESERVATION</Text>} onPress={() => alert('MES RESERVATION')} />
-            <DrawerItem label={() => <Text style={{fontSize: 19, fontWeight: "500" }}> MES BONUS</Text>} onPress={() => alert('MES BONUS')} />
-            <DrawerItem label={() => <Text style={{fontSize: 19, fontWeight: "500" }}> {UserSlice}</Text>} onPress={() => dispatch(getUSer())} />
-          </>
-        ) :
-        (
-          <>
-            <DrawerItem label={() => <Text style={{fontSize: 20, fontWeight: "500" }}> INSCRIPTION/CONNEXION</Text>} 
-            onPress={() => props.navigation.navigate("SignIn")} 
-            icon={() => <Icon name='user' type='evilicon' color="black" size={50} />} />
-            {/* <DrawerItem label="Pappa" onPress={() => alert('Link papapa')} /> */}
-            <DrawerItem label={() => <Text style={{fontSize: 20, fontWeight: "500" }}> INFORMATION</Text>} onPress={() => alert('Link  rrrr')} />
-          </>
-        )
-      }   
+        UserNumero === "" ? (
+          <> 
+          {/* {console.log("UserSlice", UserSlice)} */}
+          <DrawerItem label={() => <Text style={{fontSize: 20, fontWeight: "500" }}> INSCRIPTION/CONNEXION</Text>}  
+          onPress={() => props.navigation.navigate("SignIn")} 
+          icon={() => <Icon name='user' type='evilicon' color="black" size={50} />} /> 
+          <DrawerItem label="Pappa" onPress={() => alert('Link papapa')} />
+          <DrawerItem label={() => <Text style={{fontSize: 20, fontWeight: "500" }}> INFORMATION</Text>} onPress={() => alert('Link  rrrr')} />
+          <DrawerItem label={() => <Text style={{fontSize: 19, fontWeight: "500" }}> {UserNumero}</Text>}  />
+
+         </> 
+            )
+            :
+            ( 
+              <>      
+              <DrawerItem label={() => <Text style={{fontSize: 19, fontWeight: "500" }}> MON PROFIL</Text>}
+              onPress={() => props.navigation.navigate("Setting")} 
+              // style={{ borderBottomWidth: 1, borderBottomColor: "gray", backgroundColor: "white"}} 
+              // labelStyle={{ fontSize: 18, fontWeight: "800", fontFamily: "serif"}}
+              // icon={() => <Icon name='user' type='evilicon' color="black" size={50} />}
+              />
+              {/* <DrawerItem label="Pappa" onPress={() => alert('Link papapa')} /> */}
+              <DrawerItem label={() => <Text style={{fontSize: 19, fontWeight: "500" }}> MES FAVORIES</Text>} onPress={() => alert('MES fAVORIE')} />
+              <DrawerItem label={() => <Text style={{fontSize: 19, fontWeight: "500" }}> MES RESERVATION</Text>} onPress={() => alert('MES RESERVATION')} />
+              <DrawerItem label={() => <Text style={{fontSize: 19, fontWeight: "500" }}> MES BONUS</Text>} onPress={() => alert('MES BONUS')} />
+              <DrawerItem label={() => <Text style={{fontSize: 19, fontWeight: "500" }}> {UserNumero}</Text>}  />
+            </>
+         ) 
+       }
         {/* <DrawerItem label={userDoc ? userDoc.nom : "setiing"} 
         onPress={() => props.navigation.navigate("Setting")} 
         style={{ borderBottomWidth: 1, borderBottomColor: "gray", backgroundColor: "white"}} 
@@ -128,11 +139,12 @@ const HomeStack = createNativeStackNavigator()
 
 
 const Drawer = createDrawerNavigator();
-function DrawerNavigation(){
+function DrawerNavigation(props){
+  // console.log("drawerPRPRP", props.route.params)
   return (
     <Drawer.Navigator 
     screenOptions={{
-      headerTransparent: true, 
+      headerTransparent: true,  
       headerTitle: "",
       
     }}
@@ -161,32 +173,31 @@ const Stack = createNativeStackNavigator();
 
 
 export default function App() {
-  // const user = auth.currentUser
-  // const [userDoc, setUserDoc] = useState(); 
+  // const [userDoc, setUserDoc] = useState([]);
 
-  //   const getUserDoc = async() => {
-  //     // console.log("user crr", user.uid)
+  // const getUserDoc = () => {
+  //   const unsubscribe = auth.onAuthStateChanged(user => {
   //     if (user) {
-  //       const q = query(collection(db, "users"), where("user", "==", user.uid));
-  //       const unsubscribre = onSnapshot(q, (querySnapshot) => {
-  //       const dc = [];
-  //       querySnapshot.forEach((doc) => {
-  //         dc.push(doc.data())
-  //         console.log("les doccc", dc)
-  //       });
-  //       setUserDoc(dc[0])
-  //     })
-  //     } else {
-  //       console.log("passs user")
+  //         // console.log("user la", user.uid)
+  //         const q = query(collection(db, "users"), where("user", "==", user.uid));
+  //             const unsubscribre = onSnapshot(q, (querySnapshot) => {
+  //             const dc = [];
+  //             querySnapshot.forEach((doc) => {
+  //               dc.push(doc.data())
+  //               console.log("les doccceee", dc)
+  //             });
+  //             setUserDoc(dc[0])
+  //           })
   //     }
-      
-      
-  //   } 
+  // }) 
+  // return unsubscribe
+  // }
 
-  //   useEffect(() => { 
-      
+  // useEffect(() => {
+
+     
   //     getUserDoc();
-  // }, [])
+  // }, userDoc)
 
   return (
     <Provider store={store}>

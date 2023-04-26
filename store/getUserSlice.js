@@ -1,10 +1,23 @@
+import { useEffect, useState } from "react";
 import { createSlice } from "@reduxjs/toolkit";
+import { auth } from './../firebase';
+import { db } from '../firebase';
+import { collection, getDocs, where, query, onSnapshot } from "firebase/firestore";
 
 
 
+
+
+
+// const [mala, setMala] = useState([])
 const initialState = {
-    value: 0,
+    // value: [],
+    numero: "",
+    nom: "",
+    prenom: "",
+    user: ""
 }
+
 
 
 
@@ -12,9 +25,20 @@ export const getUserSlice = createSlice({
     name: "get_user",
     initialState,
     reducers: {
-        getUSer: (state) => {
-            state.value += 1
+        getUSer: (state, action) => {
+            state.numero = action.payload.numero
+            state.nom = action.payload.nom
+            state.prenom = action.payload.prenom
+            state.user = action.payload.user
+            // state.nom = action.payload.value.nom,
+            // state.prenom = action.pa
+            // return {
+            //     ...state,
+            //     value: action.payload
+            // }
+            // state.value.push(action.payload.value)
         }
+        
     }
 })
 
