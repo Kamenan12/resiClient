@@ -89,6 +89,8 @@ const NumPaiement = (props) => {
                                                                 +225
                                                             </Text>
                                                         }/>
+                                                        {nouveauNumero != null && nouveauNumero.length >= 2  ? <Text>Bon numero</Text>: null}
+                                                        {/* { <Text>Bon numero</Text>: null} */}
                                                         <Button 
                                                         title="Annuler"
                                                         buttonStyle={[tw`bg-rose-600 rounded-xl`]}
