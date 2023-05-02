@@ -11,14 +11,21 @@ import { onAuthStateChanged } from 'firebase/auth';
 
 
 
-const Paiement = () => {
+const Paiement = (props) => {
     const Navigation = useNavigation();
 
 
 
     const AjoutNum = (methode) => {
         Navigation.navigate("NumPaiement", {
-            methode: methode
+            methode: methode,
+            Resi: props.route.params.Resi,
+            DebutSejour: props.route.params.DebutSejour,
+            FinSejour: props.route.params.FinSejour,
+            CoutSejour: props.route.params.CoutSejour,
+            FraisService: props.route.params.FraisService,
+            NbreJour: props.route.params.NbreJour,
+            Total: props.route.params.Total
         })
     }
    

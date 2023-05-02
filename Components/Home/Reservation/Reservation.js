@@ -18,14 +18,22 @@ const Reservation = (props) => {
     const FinSejour = moment(jourSelction[jourSelction.length -1]).format("DD/MM/YYYY")
     const NbreJour = moment(jourSelction[jourSelction.length - 1]).diff(jourSelction[0], 'day');
     const CoutSejour = Resi.residence.Prix * NbreJour
-    const FraisServie = (CoutSejour * 10)/100
-    const Total = CoutSejour + FraisServie
+    const FraisService = (CoutSejour * 10)/100
+    const Total = CoutSejour + FraisService
 
     // console.log("poro", props.route.params.Jour)
 
     const Paiement = () => {
         user ? 
-        (Navigation.navigate('Paiement'), console.log("User est connecter")) 
+        (Navigation.navigate('Paiement', {
+            Resi: Resi,
+            DebutSejour: DebSejour,
+            FinSejour: FinSejour,
+            CoutSejour: CoutSejour,
+            FraisService: FraisService,
+            NbreJour: NbreJour,
+            Total: Total
+        }), console.log("User est connecter")) 
         :
         (Navigation.navigate('SignIn'), console.log("USer ID doit de connecter"))
         
@@ -138,7 +146,7 @@ const Reservation = (props) => {
                         </View>
                         <View style={tw`flex-row justify-between py-1 px-5`}>
                             <Text style={{fontSize: 15, fontWeight: "600"}}> Frais se services (10%)</Text>
-                            <Text style={{fontSize: 15, }}> {FraisServie}  </Text>
+                            <Text style={{fontSize: 15, }}> {FraisService}  </Text>
                         </View>
                         <View style={tw`flex-row justify-between py-1 px-5`}>
                             <Text style={{fontSize: 15, fontWeight: "600"}}> Total(fcfa)</Text>
