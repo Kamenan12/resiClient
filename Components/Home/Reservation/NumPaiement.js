@@ -77,11 +77,11 @@ const NumPaiement = (props) => {
             await addDoc(collection(db, `reservations`), {
                 user: UserId,
                 userDocId: UserDocId,
-                userNom: UserNom,
+                userNom: UserNom, 
                 userPrenom: UserPrenom,
                 userNumero: UserNumero,
                 idResidence: Resi.idresidence,
-                
+
                 
             })
        } catch (e){}
