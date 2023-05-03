@@ -36,6 +36,7 @@ const DetailView = (props) => {
     // useEffect(() => ( 
     //     setJourSelection
     // ), [])
+    console.log("detail", Detail)
     console.log("selection", jourSelection)
     return (
         <>

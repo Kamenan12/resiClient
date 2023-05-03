@@ -29,7 +29,10 @@ const TopResi = () => {
                     const unResi = onSnapshot(r, (queryResi) => {
                         const data = []
                             queryResi.forEach((docResi) => {
-                                data.push(docResi.data())
+                                // data.push(docResi.data())
+                                data.push({
+                                    idResi: docResi.id,
+                                    dataResi:docResi.data()})
                             })
                         // console.log("Les11 residence recuperer ", re);  
                         // setFullResi(...fullResi ,re);
@@ -52,8 +55,9 @@ const TopResi = () => {
         // console.log("fuuuuiii", fullResi)
     }
 
-    const details = (residen) => {
+    const details = (residen, idResi) => {
         Navigation.navigate('Details', {
+            idresidence: idResi, 
             residence: residen
         })
     }
@@ -79,7 +83,7 @@ const TopResi = () => {
                     (
                         fullResi.map((R, index) => (
                             R.map( (resi, index2) => (
-                                <ResiTop resi={resi} key={index2} details={details} key2={index}/>
+                                <ResiTop resi={resi.dataResi} key={index2} details={details} key2={index} idResi={resi.idResi}/>
                             ))
     
                         ))
@@ -175,11 +179,11 @@ const Skel = () => {
 const ResiTop = (props) => {
         
     const residen = props.resi
-
+    const idResi = props.idResi
     // console.log("resii", residen.Images)
 
     return(
-        <TouchableOpacity style={tw`px-2`} activeOpacity={0.8} onPress={() => props.details(residen)}>
+        <TouchableOpacity style={tw`px-2`} activeOpacity={0.8} onPress={() => props.details(residen,idResi)}>
             
                 <View style={tw`rounded-3xl shadow-lg bg-white`}>
                     <Image source={{uri: residen.Images[0].url}} style={[{width:260, height: 210}, tw`rounded-t-3xl`]}   />

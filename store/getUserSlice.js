@@ -12,6 +12,7 @@ import { collection, getDocs, where, query, onSnapshot } from "firebase/firestor
 // const [mala, setMala] = useState([])
 const initialState = {
     // value: [],
+    idDoc: "",
     numero: "",
     nom: "",
     prenom: "",
@@ -26,6 +27,7 @@ export const getUserSlice = createSlice({
     initialState,
     reducers: {
         getUSer: (state, action) => {
+            state.idDoc = action.payload.idDoc
             state.numero = action.payload.numero
             state.nom = action.payload.nom
             state.prenom = action.payload.prenom

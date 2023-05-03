@@ -5,6 +5,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Button, CheckBox, Dialog, Icon } from '@rneui/themed';
 import tw from "twrnc"
 import { Input } from '@rneui/base';
+import { addDoc, collection } from 'firebase/firestore';
+import { db } from '../../../firebase';
 
 
 
@@ -12,8 +14,14 @@ import { Input } from '@rneui/base';
 
 const NumPaiement = (props) => {
     const UserNumero = useSelector((state) => state.user.numero)
+    const UserDocId = useSelector((state) => state.user.idDoc)
+    const UserNom = useSelector((state) => state.user.nom)
+    const UserPrenom = useSelector((state) => state.user.prenom)
+    const UserId = useSelector((state) => state.user.user)
+    // const UserNumero = useSelector((state) => state.user.numero)
     const methode = props.route.params.methode
     const Resi = props.route.params.Resi
+    
     const TotalaPaye = props.route.params.Total
     const DebutSejour = props.route.params.DebutSejour
     const FinSejour = props.route.params.FinSejour
@@ -32,6 +40,7 @@ const NumPaiement = (props) => {
 
 
     // console.log(nouveauNumero)
+    console.log("Idresidence22", Resi.idresidence)
 
     const toggleDialog1 = () => {
         setVisible1(!visible1)
@@ -64,12 +73,18 @@ const NumPaiement = (props) => {
     }
 
     const reservationValide = async() => {
-        try {
-            let numroPai = await valideNumero();
-            console.log("RESERVATION", numroPai)
-        } catch (e) {
-            console.log("reerr", e)
-        }
+       try {
+            await addDoc(collection(db, `reservations`), {
+                user: UserId,
+                userDocId: UserDocId,
+                userNom: UserNom,
+                userPrenom: UserPrenom,
+                userNumero: UserNumero,
+                idResidence: Resi.idresidence,
+                
+                
+            })
+       } catch (e){}
     }
 
     useEffect(()=> {

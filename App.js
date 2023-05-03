@@ -74,15 +74,23 @@ const HomeStack = createNativeStackNavigator()
                 const unsubscribre = onSnapshot(q, (querySnapshot) => {
                 const dc = [];
                 querySnapshot.forEach((doc) => {
-                  dc.push(doc.data())
+                  console.log("isssDoc", doc.id)
+                  dc.push({
+                    id: doc.id,
+                    data: doc.data()
+                  })
+                  // dc.push(doc.data())
                   // console.log("les doccc", dc)
                 });
                 // setUserDoc(dc[0])
+                // console.log("DADA", dc[0].data.Numero)
+                // console.log("IDD", dc[0].id)
                 dispatch(getUSer({
-                  numero: dc[0].Numero,
-                  nom: dc[0].nom,
-                  prenom: dc[0].prenom,
-                  user: dc[0].user
+                  idDoc: dc[0].id,
+                  numero: dc[0].data.Numero,
+                  nom: dc[0].data.nom,
+                  prenom: dc[0].data.prenom,
+                  user: dc[0].data.user
                   // value: dc[0]
                 }))
               })
