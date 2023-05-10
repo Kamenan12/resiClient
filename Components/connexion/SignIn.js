@@ -91,7 +91,7 @@ const SignIn = () => {
                 number, recaptchaVerifier.current
             );
                 setVerificationId(verificationId);
-               alert("les code a ete envoyer sr votre telphoene");
+               alert("le code a ete envoye ser votre telephone");
                setOtpEnvoyer(true)
         } catch (err) {
             console.log("erre", err.message);

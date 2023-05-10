@@ -40,7 +40,7 @@ const NumPaiement = (props) => {
 
 
     // console.log(nouveauNumero)
-    console.log("Idresidence22", Resi.idresidence)
+    // console.log("Idresidence22", Resi.idresidence)
 
     const toggleDialog1 = () => {
         setVisible1(!visible1)
@@ -85,6 +85,7 @@ const NumPaiement = (props) => {
                 
             })
        } catch (e){}
+       console.log("reservation fait")
     }
 
     useEffect(()=> {
@@ -360,6 +361,7 @@ const NumPaiement = (props) => {
                                         <View style={[tw`bg-white items-center mb-2 py-2`]}>
                                             <View style={tw`w-80`}>
                                                 <Button title="Reservez maintenant"
+                                                onPress={()=> reservationValide()}
                                                 buttonStyle={[
                                                     tw`bg-green-500 rounded-lg`
                                                 ]}

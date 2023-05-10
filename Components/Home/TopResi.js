@@ -18,14 +18,14 @@ const TopResi = () => {
 
     const getFullResi = async() => {
 
-        let q = query(collection(db, "users"));
+        let q = query(collection(db, "hotes"));
 
         const unUser = onSnapshot(q, (queryUser) => {
             let rss = []
             const usR = []
                 queryUser.forEach((docUser) => {
                     
-                    let r = query(collection(db, `users/${docUser.id}/residences`));
+                    let r = query(collection(db, `hotes/${docUser.id}/residences`));
                     const unResi = onSnapshot(r, (queryResi) => {
                         const data = []
                             queryResi.forEach((docResi) => {
@@ -207,7 +207,7 @@ const ResiTop = (props) => {
                                 <View style={tw`flex-row`}> 
                                     {/* <Icon type="ionicon" name="md-home" size={20} color="red"/> */}
                                     <Text style={{ fontWeight: "600"}}> {residen.Type_residence}, </Text>
-                                </View>  : nulll
+                                </View>  : ""
                             }
                             <View>
                                 <Text style={{fontWeight: "600"}}>{residen.Location.ville},</Text>

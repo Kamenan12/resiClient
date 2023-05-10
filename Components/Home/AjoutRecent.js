@@ -12,14 +12,14 @@ const AjoutRecent = () => {
 
     const getRecentResi = async() => {
 
-        let q = query(collection(db, "users"));
+        let q = query(collection(db, "hotes"));
 
         const unUser = onSnapshot(q, (queryUser) => {
             let rss = []
             const usR = []
                 queryUser.forEach((docUser) => {
                     
-                    let r = query(collection(db, `users/${docUser.id}/residences`));
+                    let r = query(collection(db, `hotes/${docUser.id}/residences`));
                     const unResi = onSnapshot(r, (queryResi) => {
                         const data = []
                             queryResi.forEach((docResi) => {
