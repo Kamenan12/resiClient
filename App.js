@@ -29,6 +29,7 @@ import { store } from './store/store';
 
 import { useSelector, useDispatch } from 'react-redux';
 import { getUSer } from './store/getUserSlice';
+import MesReservation from './Components/MesReservation/MesReservation';
 
 
 
@@ -112,7 +113,7 @@ const HomeStack = createNativeStackNavigator()
           icon={() => <Icon name='user' type='evilicon' color="black" size={50} />} /> 
           <DrawerItem label="Pappa" onPress={() => alert('Link papapa')} />
           <DrawerItem label={() => <Text style={{fontSize: 20, fontWeight: "500" }}> INFORMATION</Text>} onPress={() => alert('Link  rrrr')} />
-          <DrawerItem label={() => <Text style={{fontSize: 19, fontWeight: "500" }}> {UserNumero}</Text>}  />
+          {/* <DrawerItem label={() => <Text style={{fontSize: 19, fontWeight: "500" }}> {UserNumero}</Text>}  /> */}
 
          </> 
             )
@@ -127,7 +128,7 @@ const HomeStack = createNativeStackNavigator()
               />
               {/* <DrawerItem label="Pappa" onPress={() => alert('Link papapa')} /> */}
               <DrawerItem label={() => <Text style={{fontSize: 19, fontWeight: "500" }}> MES FAVORIES</Text>} onPress={() => alert('MES fAVORIE')} />
-              <DrawerItem label={() => <Text style={{fontSize: 19, fontWeight: "500" }}> MES RESERVATION</Text>} onPress={() => alert('MES RESERVATION')} />
+              <DrawerItem label={() => <Text style={{fontSize: 19, fontWeight: "500" }}> MES RESERVATION</Text>} onPress={() => props.navigation.navigate("MesReservation")} />
               <DrawerItem label={() => <Text style={{fontSize: 19, fontWeight: "500" }}> MES BONUS</Text>} onPress={() => alert('MES BONUS')} />
               <DrawerItem label={() => <Text style={{fontSize: 19, fontWeight: "500" }}> {UserNumero}</Text>}  />
             </>
@@ -162,7 +163,8 @@ function DrawerNavigation(props){
         <Drawer.Screen name="Home-s" component={HomeScreen} options={{
           title: "Accueil"
         }}/>
-        {/* <Drawer.Screen name="Setting" component={Setting}/> */}
+        <Drawer.Screen name="Setting" component={Setting}/>
+        <Drawer.Screen name="MesReservation" component={MesReservation}/>
         {/* <Drawer.Screen name="eeee" /> */}
         {/* <HomeStack.Screen name="Details" component={DetailView} options={{ headerShown: false, }}/>
         <HomeStack.Screen name="Reservation" component={Reservation} options={{ headerShown: false, }}/>
@@ -221,7 +223,7 @@ export default function App() {
           <Stack.Screen name="Login" component={Login} options={{ headerShown: false, }}/>
           <Stack.Screen name="Villes" component={Villes} options={{ headerShown: false, }}/>
           <Stack.Screen name="Communes" component={Communes} options={{ headerShown: false, }}/>
-          <Stack.Screen name="Setting" component={Setting} options={{ headerShown: false, }}/>
+          {/* <Stack.Screen name="Setting" component={Setting} options={{ headerShown: false, }}/> */}
         </Stack.Navigator>
         {/* <Drawer.Navigator initialRouteName='Home-G' screenOptions={{
           headerTransparent: true, 

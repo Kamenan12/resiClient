@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Button, CheckBox, Dialog, Icon } from '@rneui/themed';
 import tw from "twrnc"
 import { Input } from '@rneui/base';
-import { addDoc, collection } from 'firebase/firestore';
+import { addDoc, collection, serverTimestamp } from 'firebase/firestore';
 import { db } from '../../../firebase';
 
 
@@ -81,7 +81,16 @@ const NumPaiement = (props) => {
                 userPrenom: UserPrenom,
                 userNumero: UserNumero,
                 idResidence: Resi.idresidence,
-
+                nombreDeJour: NbreJour,
+                debutSejour: DebutSejour,
+                finSejour: FinSejour,
+                prix24h: Resi.residence.Prix,
+                coutSejour: CoutSejour,
+                frais: FraisService,
+                totalAPaye: TotalaPaye,
+                modepaiement: methode.nom,
+                numeroDePaiement: numPaiement,
+                date_create: serverTimestamp()
                 
             })
        } catch (e){}
