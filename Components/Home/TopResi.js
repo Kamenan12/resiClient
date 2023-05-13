@@ -18,14 +18,14 @@ const TopResi = () => {
 
     const getFullResi = async() => {
 
-        let q = query(collection(db, "hotes"));
+        // let q = query(collection(db, "residences"));
 
-        const unUser = onSnapshot(q, (queryUser) => {
-            let rss = []
-            const usR = []
-                queryUser.forEach((docUser) => {
+        // const unUser = onSnapshot(q, (queryUser) => {
+            // let rss = []
+            // const usR = []
+                // queryUser.forEach((docUser) => {
                     
-                    let r = query(collection(db, `hotes/${docUser.id}/residences`));
+                    let r = query(collection(db, `residences`));
                     const unResi = onSnapshot(r, (queryResi) => {
                         const data = []
                             queryResi.forEach((docResi) => {
@@ -37,21 +37,21 @@ const TopResi = () => {
                         // console.log("Les11 residence recuperer ", re);  
                         // setFullResi(...fullResi ,re);
                         // console.log("dans re", fullResi)
-                        if (data.length !== 0){
-                            rss = [...rss, data]
-                        }
-                        // console.log("xxx11", rss)
-                        setFullResi(rss)
+                        // if (data.length !== 0){
+                        //     rss = [...rss, data]
+                        // }
+                        // // console.log("xxx11", rss)
+                        setFullResi(data)
                     })
                     // console.log("uuussRR", usR)
                     // console.log("avant x", x)
                     // x = x + 1;
                     // console.log("DAans UsR", fullResi)
                    
-                })
+                // })
             //  console.log("uree222", usR)
             // console.log("x", x)
-        })
+        // })
         // console.log("fuuuuiii", fullResi)
     }
 
@@ -81,12 +81,12 @@ const TopResi = () => {
                     {fullResi.length == 0 ? 
                     (<Skel />) : 
                     (
-                        fullResi.map((R, index) => (
-                            R.map( (resi, index2) => (
-                                <ResiTop resi={resi.dataResi} key={index2} details={details} key2={index} idResi={resi.idResi}/>
+                        // fullResi.map((R, index) => (
+                            fullResi.map( (resi, index2) => (
+                                <ResiTop resi={resi.dataResi} key={index2} details={details}  idResi={resi.idResi}/>
                             ))
     
-                        ))
+                        // ))
                     )
                         
                     }

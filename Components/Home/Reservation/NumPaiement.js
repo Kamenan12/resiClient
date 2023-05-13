@@ -73,6 +73,7 @@ const NumPaiement = (props) => {
     }
 
     const reservationValide = async() => {
+        console.log("userHote", Resi.residence.idDocHote)
        try {
             await addDoc(collection(db, `reservations`), {
                 user: UserId,
@@ -81,6 +82,7 @@ const NumPaiement = (props) => {
                 userPrenom: UserPrenom,
                 userNumero: UserNumero,
                 idResidence: Resi.idresidence,
+                userHote: Resi.residence.idDocHote,
                 nombreDeJour: NbreJour,
                 debutSejour: DebutSejour,
                 finSejour: FinSejour,
@@ -93,7 +95,9 @@ const NumPaiement = (props) => {
                 date_create: serverTimestamp()
                 
             })
-       } catch (e){}
+       } catch (e){
+        console.log("eerrr", e)
+       }
        console.log("reservation fait")
     }
 

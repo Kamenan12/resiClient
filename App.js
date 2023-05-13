@@ -86,14 +86,17 @@ const HomeStack = createNativeStackNavigator()
                 // setUserDoc(dc[0])
                 // console.log("DADA", dc[0].data.Numero)
                 // console.log("IDD", dc[0].id)
-                dispatch(getUSer({
-                  idDoc: dc[0].id,
-                  numero: dc[0].data.Numero,
-                  nom: dc[0].data.nom,
-                  prenom: dc[0].data.prenom,
-                  user: dc[0].data.user
-                  // value: dc[0]
-                }))
+                if (dc.length != 0) {
+
+                  dispatch(getUSer({
+                    idDoc: dc[0].id,
+                    numero: dc[0].data.Numero,
+                    nom: dc[0].data.nom,
+                    prenom: dc[0].data.prenom,
+                    user: dc[0].data.user
+                    // value: dc[0]
+                  }))
+                } 
               })
         }
     })
