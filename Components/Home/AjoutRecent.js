@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, StyleSheet, Image } from "react-native";
+import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 
 import { db } from "../../firebase";
 import { collection, onSnapshot, query, where,orderBy } from "firebase/firestore";
@@ -7,43 +8,52 @@ import { Icon } from "@rneui/themed";
 import tw from 'twrnc'
 
 const AjoutRecent = () => {
-
+    const Navigation = useNavigation();
     const [RecentResi, setRecentResi] = useState([]);
 
     const getRecentResi = async() => {
 
-        let q = query(collection(db, "hotes"));
+        // let q = query(collection(db, "hotes"));
 
-        const unUser = onSnapshot(q, (queryUser) => {
-            let rss = []
-            const usR = []
-                queryUser.forEach((docUser) => {
+        // const unUser = onSnapshot(q, (queryUser) => {
+            // let rss = []
+            // const usR = []
+                // queryUser.forEach((docUser) => {
                     
-                    let r = query(collection(db, `hotes/${docUser.id}/residences`));
+                    let r = query(collection(db, `residences`));
                     const unResi = onSnapshot(r, (queryResi) => {
                         const data = []
                             queryResi.forEach((docResi) => {
-                                data.push(docResi.data())
+                                data.push({
+                                    idResi: docResi.id,
+                                    dataResi:docResi.data()})
                             })
                         // console.log("Les11 residence recuperer ", re);  
                         // setRecentResi(...RecentResi ,re);
                         // console.log("dans re", RecentResi)
-                        if (data.length !== 0){
-                            rss = [...rss, data]
-                        }
+                        // if (data.length !== 0){
+                        //     rss = [...rss, data]
+                        // }
                         // console.log("xxx11", rss)
-                        setRecentResi(rss)
+                        setRecentResi(data)
                     })
                     // console.log("uuussRR", usR)
                     // console.log("avant x", x)
                     // x = x + 1;
                     // console.log("DAans UsR", RecentResi)
                    
-                })
+                // })
             //  console.log("uree222", usR)
             // console.log("x", x)
+        // })
+        // console.log("fuuuuiii", RecentResi)
+    }
+
+    const details = (residen, idResi) => {
+        Navigation.navigate('Details', {
+            idresidence: idResi, 
+            residence: residen
         })
-        console.log("fuuuuiii", RecentResi)
     }
 
     useEffect( () => {
@@ -60,13 +70,13 @@ const AjoutRecent = () => {
             <View style={tw`px-3`}>
 
             {
-                        RecentResi.map((R, index) => (
-                            R.map( (resi, index2) => (
+                        // RecentResi.map((R, index) => (
+                            RecentResi.map( (resi, index2) => (
                                 // console.log("RRRR", resi)
-                                <RecentAjout resi={resi} key={index2} key2={index}/>
+                                <RecentAjout resi={resi.dataResi} key={index2} details={details} idResi={resi.idResi}/>
                             ))
 
-                        ))
+                        // ))
                     }
             </View>
         </View>
@@ -79,9 +89,11 @@ const AjoutRecent = () => {
 const RecentAjout = (props) => {
 
     const residen = props.resi
+    const idResi = props.idResi
 
     return  (
-        <View style={tw`flex-row bg-white  my-4 shadow-xl rounded-2xl`}>
+        <TouchableOpacity style={tw`px-2`} activeOpacity={0.8} onPress={() => props.details(residen,idResi)}>
+             <View style={tw`flex-row bg-white  my-4 shadow-xl rounded-2xl`}>
             <View>
                 <Image source={{ uri: residen.Images[0].url}} style={[tw`rounded-l-2xl`, {width: 120, height: 150}]} />
             </View>
@@ -124,7 +136,9 @@ const RecentAjout = (props) => {
                     <Text style={[tw``, { color: "white", fontSize: 27, }]}>details</Text>
                 </View>
             </View>
-        </View>
+             </View>
+        </TouchableOpacity>
+       
     )
 }
 

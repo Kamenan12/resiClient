@@ -30,6 +30,7 @@ import { store } from './store/store';
 import { useSelector, useDispatch } from 'react-redux';
 import { getUSer } from './store/getUserSlice';
 import MesReservation from './Components/MesReservation/MesReservation';
+import DetailReservation from './Components/MesReservation/Details/DetailReservation';
 
 
 
@@ -226,6 +227,7 @@ export default function App() {
           <Stack.Screen name="Login" component={Login} options={{ headerShown: false, }}/>
           <Stack.Screen name="Villes" component={Villes} options={{ headerShown: false, }}/>
           <Stack.Screen name="Communes" component={Communes} options={{ headerShown: false, }}/>
+          <Stack.Screen name="DetailReservation" component={DetailReservation} options={{ headerShown: false, }}/>
           {/* <Stack.Screen name="Setting" component={Setting} options={{ headerShown: false, }}/> */}
         </Stack.Navigator>
         {/* <Drawer.Navigator initialRouteName='Home-G' screenOptions={{

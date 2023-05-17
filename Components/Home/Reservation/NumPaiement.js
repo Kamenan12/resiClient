@@ -76,13 +76,13 @@ const NumPaiement = (props) => {
         console.log("userHote", Resi.residence.idDocHote)
        try {
             await addDoc(collection(db, `reservations`), {
-                user: UserId,
-                userDocId: UserDocId,
-                userNom: UserNom, 
-                userPrenom: UserPrenom,
-                userNumero: UserNumero,
+                userClient: UserId,
+                userClientIdDoc: UserDocId,
+                userClientNom: UserNom, 
+                userClientPrenom: UserPrenom,
+                userClientNumero: UserNumero,
                 idResidence: Resi.idresidence,
-                userHote: Resi.residence.idDocHote,
+                userHoteIdDoc: Resi.residence.idDocHote,
                 nombreDeJour: NbreJour,
                 debutSejour: DebutSejour,
                 finSejour: FinSejour,
