@@ -5,7 +5,7 @@ import { View, Text, StyleSheet } from "react-native";
 
 const Map = () => {
     return (
-        <View>
+        <View>     
             <Text> Mettre ici map</Text>
         </View>
     )
