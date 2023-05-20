@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import 'react-native-gesture-handler';
 import { StyleSheet, Text, View } from 'react-native';
 
@@ -31,6 +31,13 @@ import { useSelector, useDispatch } from 'react-redux';
 import { getUSer } from './store/getUserSlice';
 import MesReservation from './Components/MesReservation/MesReservation';
 import DetailReservation from './Components/MesReservation/Details/DetailReservation';
+
+import * as Device from 'expo-device';
+import * as Notifications from 'expo-notifications';
+
+
+
+
 
 
 
@@ -186,32 +193,52 @@ const Stack = createNativeStackNavigator();
 
 
 
+// Focntoin de notification de exppp
+Notifications.setNotificationHandler({
+  handleNotification: async () => ({
+    shouldShowAlert: true,
+    shouldPlaySound: true,
+    shouldSetBadge: true,
+  }),
+});
+
+
+
+
+// Fonctoin de notification de exppp 
+
+
+
 export default function App() {
-  // const [userDoc, setUserDoc] = useState([]);
 
-  // const getUserDoc = () => {
-  //   const unsubscribe = auth.onAuthStateChanged(user => {
-  //     if (user) {
-  //         // console.log("user la", user.uid)
-  //         const q = query(collection(db, "users"), where("user", "==", user.uid));
-  //             const unsubscribre = onSnapshot(q, (querySnapshot) => {
-  //             const dc = [];
-  //             querySnapshot.forEach((doc) => {
-  //               dc.push(doc.data())
-  //               console.log("les doccceee", dc)
-  //             });
-  //             setUserDoc(dc[0])
-  //           })
-  //     }
-  // }) 
-  // return unsubscribe
-  // }
 
-  // useEffect(() => {
+  const [expoPushToken, setExpoPushToken] = useState('');
+  const [notification, setNotification] = useState(false);
+  const notificationListener = useRef();
+  const responseListener = useRef();
 
-     
-  //     getUserDoc();
-  // }, userDoc)
+  useEffect(() => {
+    registerForPushNotificationsAsync().then(token => setExpoPushToken(token));
+
+    notificationListener.current = Notifications.addNotificationReceivedListener(notification => {
+      setNotification(notification);
+    });
+
+    responseListener.current = Notifications.addNotificationResponseReceivedListener(response => {
+      console.log(response);
+    });
+
+    return () => {
+      Notifications.removeNotificationSubscription(notificationListener.current);
+      Notifications.removeNotificationSubscription(responseListener.current);
+    };
+  }, []);
+  
+
+
+  async function registerForPushNotification(){
+    const {status} = await Permissions.getAsync(per)
+  }
 
   return (
     <Provider store={store}>
@@ -249,3 +276,36 @@ export default function App() {
 const styles = StyleSheet.create({
  
 });
+
+
+async function registerForPushNotificationsAsync() {
+  let token;
+
+  if (Platform.OS === 'android') {
+    await Notifications.setNotificationChannelAsync('default', {
+      name: 'default',
+      importance: Notifications.AndroidImportance.MAX,
+      vibrationPattern: [0, 250, 250, 250],
+      lightColor: '#FF231F7C',
+    });
+  }
+
+  if (Device.isDevice) {
+    const { status: existingStatus } = await Notifications.getPermissionsAsync();
+    let finalStatus = existingStatus;
+    if (existingStatus !== 'granted') {
+      const { status } = await Notifications.requestPermissionsAsync();
+      finalStatus = status;
+    }
+    if (finalStatus !== 'granted') {
+      alert('Failed to get push token for push notification!');
+      return;
+    }
+    token = (await Notifications.getExpoPushTokenAsync()).data;
+    console.log(token);
+  } else {
+    alert('Must use physical device for Push Notifications');
+  }
+
+  return token;
+}
