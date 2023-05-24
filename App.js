@@ -32,8 +32,7 @@ import { getUSer } from './store/getUserSlice';
 import MesReservation from './Components/MesReservation/MesReservation';
 import DetailReservation from './Components/MesReservation/Details/DetailReservation';
 
-import * as Device from 'expo-device';
-import * as Notifications from 'expo-notifications';
+
 
 
 
@@ -194,15 +193,6 @@ const Stack = createNativeStackNavigator();
 
 
 // Focntoin de notification de exppp
-Notifications.setNotificationHandler({
-  handleNotification: async () => ({
-    shouldShowAlert: true,
-    shouldPlaySound: true,
-    shouldSetBadge: true,
-  }),
-});
-
-
 
 
 // Fonctoin de notification de exppp 
@@ -212,33 +202,7 @@ Notifications.setNotificationHandler({
 export default function App() {
 
 
-  const [expoPushToken, setExpoPushToken] = useState('');
-  const [notification, setNotification] = useState(false);
-  const notificationListener = useRef();
-  const responseListener = useRef();
 
-  useEffect(() => {
-    registerForPushNotificationsAsync().then(token => setExpoPushToken(token));
-
-    notificationListener.current = Notifications.addNotificationReceivedListener(notification => {
-      setNotification(notification);
-    });
-
-    responseListener.current = Notifications.addNotificationResponseReceivedListener(response => {
-      console.log(response);
-    });
-
-    return () => {
-      Notifications.removeNotificationSubscription(notificationListener.current);
-      Notifications.removeNotificationSubscription(responseListener.current);
-    };
-  }, []);
-  
-
-
-  async function registerForPushNotification(){
-    const {status} = await Permissions.getAsync(per)
-  }
 
   return (
     <Provider store={store}>
