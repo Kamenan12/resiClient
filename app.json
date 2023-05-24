@@ -34,6 +34,9 @@
         "projectId": "300bdfaa-aedd-4ae5-b287-40da4b9ee892"
       }
     },
-    "owner": "kamenan12"
+    "owner": "kamenan12",
+    "plugins": [
+      "onesignal-expo-plugin"
+    ]
   }
 }
