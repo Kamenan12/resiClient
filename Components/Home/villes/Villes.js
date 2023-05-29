@@ -22,7 +22,7 @@ const Villes = () => {
                 <ScrollView >
                     {
                         Ville.map( (V, index) => (
-                            <Vil ville={V} index={index}/>
+                            <Vil ville={V} key={index}/>
                         ))
                     }
                 </ScrollView>

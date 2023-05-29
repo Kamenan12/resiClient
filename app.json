@@ -18,13 +18,15 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.test.test"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
-      }
+      },
+      "package": "com.test.test"
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -32,11 +34,17 @@
     "extra": {
       "eas": {
         "projectId": "300bdfaa-aedd-4ae5-b287-40da4b9ee892"
+        
       }
     },
     "owner": "kamenan12",
     "plugins": [
-      "onesignal-expo-plugin"
+      [
+        "onesignal-expo-plugin",
+        {
+          "mode": "development"
+        }
+      ]
     ]
   }
 }

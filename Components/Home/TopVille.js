@@ -32,7 +32,7 @@ const TopVille = () => {
 
                 {
                     Ville.map( (V, index) => (
-                        <VilleTop ville={V} index={index}/>
+                        <VilleTop ville={V} key={index}/>
                     ))
                 }
                 </ScrollView>
