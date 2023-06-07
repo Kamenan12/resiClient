@@ -51,7 +51,7 @@ const MesReservation = () => {
                 //         Resid: resi.data()
                 //     })
                 // })
-                console.log("REerrr",rss )
+                // console.log("REerrr",rss )
                 
 
                 setMesreser(rss)
@@ -70,7 +70,67 @@ const MesReservation = () => {
             hote: hote
         })
     }
-   
+    
+
+
+    // TEst de Onsignale poste notification 
+    const SendPushNotificationTest = async() => {
+
+        const fetch = require('node-fetch');
+
+            const url = 'https://onesignal.com/api/v1/notifications';
+            const options = {
+            method: 'POST',
+            headers: {
+                accept: 'application/json',
+                Authorization: 'Basic MWY5OTNkMDMtNjBjNi00NDBhLTliNTctMDUxNGZkYzM5MWVj',
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify({
+                app_id: 'aa4ac4ba-af7d-4cda-8026-880f02f59063',
+                included_segments: ['Subscribed Users'],
+                contents: {fr: 'je suis une campagne magnifique', en: 'English or Any Language Message', es: 'Spanish Message'},
+                name: 'INTERNAL_CAMPAIGN_NAME'
+            })
+            };
+
+            fetch(url, options)
+            .then(res => res.json())
+            .then(json => console.log(json))
+            .catch(err => console.error('error:' + err));
+
+
+
+
+
+    //  fetch('https://onesignal.com/api/v1/notifications', {
+    //         method: 'POST',
+    //         headers: {
+    //         'Content-Type': 'application/json',
+    //         'Authorization': 'MWY5OTNkMDMtNjBjNi00NDBhLTliNTctMDUxNGZkYzM5MWVj'
+    //         },
+    //         body: JSON.stringify({
+    //         app_id: 'aa4ac4ba-af7d-4cda-8026-880f02f59063',
+    //         included_segments: ['Subscribed Users'],
+    //         contents: { fr: 'bonjours anto' },
+    //         name: 'ResiPus'
+    //         })
+    //     }).then(response => {
+    //         console.log('Notification envoyée avec succès:');
+    //     }).catch(error => {
+    //         console.error('Erreur lors de l\'envoi de la notification:');
+    //     });
+
+    //     // console.log("psuuushh noitifif")
+    }
+
+// Fin de teste
+
+
+
+
+
+
 
     useEffect(()=> {
         // console.log("user efefefefe");
@@ -86,7 +146,7 @@ const MesReservation = () => {
                     mesReser.map((R, index1) => (
                         R.map((rese, index2) => (
                             // <Text>1111</Text>
-                            <Reservation id={rese.idReservation} data={rese.Reservation} resi={rese.residence} hote={rese.hote} details={DetailMesreservation} key={index2}/>
+                            <Reservation id={rese.idReservation} data={rese.Reservation} resi={rese.residence} hote={rese.hote} details={DetailMesreservation} key={index2} notify={SendPushNotificationTest}/>
                         ))
                     ))
                 }
@@ -98,6 +158,7 @@ const MesReservation = () => {
 
 
 
+
 const Reservation = (props) => {
     
 
@@ -105,15 +166,15 @@ const Reservation = (props) => {
     const infoReser = props.data 
     const resi = props.resi
     const hote = props.hote
-    // console.log("ttttt", resi)
+    // console.log("ttttt", resi) props.details(id, infoReser,resi, hote)
     return (
-        <TouchableOpacity onPress={() => props.details(id, infoReser,resi, hote)}>
+        <TouchableOpacity onPress={() => props.notify()}>
             <View style={tw`flex-row p-4 border-b border-gray-300 `}>
                 <View>
                     <Image source={{uri: resi.Images[0].url}} style={[tw`rounded-lg`,{ width: 80, height: 80}]}/>
                 </View>
                 <View style={tw`px-2`}>
-                    <Text style={[{fontWeight: "500", fontSize: 22}]}>{resi.Titre}</Text>
+                    <Text style={[{fontWeight: "500", fontSize: 22}]} >{resi.Titre}</Text>
                     <Text>Debut : {infoReser.debutSejour}</Text>
                     <Text>Fin : {infoReser.finSejour}</Text>
                 </View>

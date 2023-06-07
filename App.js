@@ -34,7 +34,7 @@ import DetailReservation from './Components/MesReservation/Details/DetailReserva
 
 import OneSignal from 'react-native-onesignal';
 import Constants from "expo-constants";
-OneSignal.setAppId("aa4ac4ba-af7d-4cda-8026-880f02f59063");
+
 
 
 
@@ -109,6 +109,7 @@ const HomeStack = createNativeStackNavigator()
               })
         }
     })
+
     // return unsubscribe
       // getUserDoc();
       // dispatch(getUSer())
@@ -203,6 +204,74 @@ const Stack = createNativeStackNavigator();
 
 export default function App() {
 
+  useEffect(async () => {
+    OneSignal.setAppId("aa4ac4ba-af7d-4cda-8026-880f02f59063");
+
+
+    const data = await OneSignal.getDeviceState()
+    // OneSignal.addEventListener('received', onReceived);
+    // OneSignal.addEventListener('opened', onOpened);
+    // OneSignal.addEventListener('ids', onIds);
+    // OneSignal.configure();
+    
+    // OneSignal.init("aa4ac4ba-af7d-4cda-8026-880f02f59063", {
+    //   kOSSettingsKeyAutoPrompt: true,
+    // });
+    // OneSignal.getPermissionSubscriptionState( (status) => {
+    //   userID = status.userId;
+    //   alert(userID);
+    // });
+    console.log("dtattaa",data)
+    // OneSignal.getExternalUserId(UserId => {
+    //   console.log("ExternalUser", UserId)
+    // })
+    // OneSignal.push(function() {
+    //   OneSignal.getExternalUserId().then(function(externalUserId){
+    //     console.log("externalUserId: ", externalUserId);
+    //   });
+    // });
+  }, [])
+
+
+
+
+
+
+  // *********************
+
+  // componentWillMount = () => {
+  //     OneSignal.init("APP ID GOES HERE", {kOSSettingsKeyAutoPrompt : true});
+  //     OneSignal.addEventListener('received', this.onReceived);
+  //     OneSignal.addEventListener('opened', this.onOpened);
+  //     OneSignal.addEventListener('ids', this.bind.onIds);
+  //     console.log("commmpoment")
+  //     OneSignal.configure();  // <-- add this line
+  // }
+
+  // componentWillUnmount() {
+  //     OneSignal.removeEventListener('received', this.onReceived);
+  //     OneSignal.removeEventListener('opened', this.onOpened);
+  //     OneSignal.removeEventListener('ids', this.onIds);
+  // }
+
+  // onReceived = (notification) => {
+  //     console.log("Notification received: ", notification);
+  // }
+
+  // onOpened = (openResult) => {
+  //   console.log('Message: ', openResult.notification.payload.body);
+  //   console.log('Data: ', openResult.notification.payload.additionalData);
+  //   console.log('isActive: ', openResult.notification.isAppInFocus);
+  //   console.log('openResult: ', openResult);
+  // }
+
+  // onIds = (device) => {
+  //   console.log('Device info: ', device);
+  // }
+
+  // ****************
+
+
 
 
 
@@ -244,34 +313,34 @@ const styles = StyleSheet.create({
 });
 
 
-async function registerForPushNotificationsAsync() {
-  let token;
+// async function registerForPushNotificationsAsync() {
+//   let token;
 
-  if (Platform.OS === 'android') {
-    await Notifications.setNotificationChannelAsync('default', {
-      name: 'default',
-      importance: Notifications.AndroidImportance.MAX,
-      vibrationPattern: [0, 250, 250, 250],
-      lightColor: '#FF231F7C',
-    });
-  }
+//   if (Platform.OS === 'android') {
+//     await Notifications.setNotificationChannelAsync('default', {
+//       name: 'default',
+//       importance: Notifications.AndroidImportance.MAX,
+//       vibrationPattern: [0, 250, 250, 250],
+//       lightColor: '#FF231F7C',
+//     });
+//   }
 
-  if (Device.isDevice) {
-    const { status: existingStatus } = await Notifications.getPermissionsAsync();
-    let finalStatus = existingStatus;
-    if (existingStatus !== 'granted') {
-      const { status } = await Notifications.requestPermissionsAsync();
-      finalStatus = status;
-    }
-    if (finalStatus !== 'granted') {
-      alert('Failed to get push token for push notification!');
-      return;
-    }
-    token = (await Notifications.getExpoPushTokenAsync()).data;
-    console.log(token);
-  } else {
-    alert('Must use physical device for Push Notifications');
-  }
+//   if (Device.isDevice) {
+//     const { status: existingStatus } = await Notifications.getPermissionsAsync();
+//     let finalStatus = existingStatus;
+//     if (existingStatus !== 'granted') {
+//       const { status } = await Notifications.requestPermissionsAsync();
+//       finalStatus = status;
+//     }
+//     if (finalStatus !== 'granted') {
+//       alert('Failed to get push token for push notification!');
+//       return;
+//     }
+//     token = (await Notifications.getExpoPushTokenAsync()).data;
+//     console.log(token);
+//   } else {
+//     alert('Must use physical device for Push Notifications');
+//   }
 
-  return token;
-}
+//   return token;
+// }
