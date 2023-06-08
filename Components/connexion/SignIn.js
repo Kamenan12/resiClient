@@ -12,12 +12,12 @@ import { db } from "../../firebase";
 import { addDoc, collection, doc, getDoc, onSnapshot, query, serverTimestamp, where } from "@firebase/firestore";
 import { Button, Input } from "@rneui/themed";
 import tw from 'twrnc'
-import { async } from "@firebase/util";
+import OneSignal from 'react-native-onesignal';
 
 
 
 const SignIn = () => {
-        const navigation = useNavigation()
+        const navigation = useNavigation()     
         const [number, setNumber] = useState('')
         const [step, setStep] = useState(1)
         const recaptchaVerifier = useRef(null)
@@ -41,6 +41,7 @@ const SignIn = () => {
         const Suivant = () => {
             setStep(step + 1)
         }
+        // ******* code de verification otp de nouveau user qui c'est maintenant va s'inscrire avec son numero de telehpone
     const VerficationOtpNewUser = async(data) => {
         try {
             const credential = PhoneAuthProvider.credential(verificationId, verificationCode);
@@ -59,6 +60,7 @@ const SignIn = () => {
                 } catch (e) {
                     console.log("errer de creationd user")
                 }
+                AddExternalUserIdOneSignal(user.uid)
             }); 
             // alert("user bien connecter")
             navigation.navigate("Home-G")
@@ -66,11 +68,16 @@ const SignIn = () => {
             alert ("errro", err);
           }
     }
+
+    // ****** fin de code de nouveau user pour son inscritption
+
+    //***** */ verification de code de opt de user qui est deja inscrire avec son numero de telephone 
     const VerficationOtp = async(data) => {
         try {
             const credential = PhoneAuthProvider.credential(verificationId, verificationCode);
             await signInWithCredential(auth, credential).then(async (credential) => {
                 const user = credential.user;
+                AddExternalUserIdOneSignal(user.uid)
             }); 
             alert("user bien connecter")
             navigation.navigate("Home-G")
@@ -78,8 +85,9 @@ const SignIn = () => {
             alert ("errro", err);
           }
     }
-    
+    // ****** fin de verification de code 
 
+        // ******** code d'envoie de Opt au numero de user
     const getRec = async() => {
 
         // if (number !== "" || number !== undefined)
@@ -99,7 +107,9 @@ const SignIn = () => {
         }
         
     }
+// ***** fin de code d'envoi de otp de l'user 
 
+// ******** code de verification dans la base de donnees pour voir si user existe deja
     const VerificationUser = async() => {
         
         const us = []
@@ -116,8 +126,39 @@ const SignIn = () => {
                 } 
         })
     } 
-    
-    
+    // ********* fin de code pour voir si user existe vraiment 
+
+
+
+    // ******** Ajout du code de oneSignale pour lier le External_user_id avec Id de user 
+     const AddExternalUserIdOneSignal = async(idUser) => {
+                OneSignal.setExternalUserId(idUser, (results) => {
+                // The results will contain push and email success statuses
+                console.log('Results of setting external user id');
+                console.log(results);
+                
+                // Push can be expected in almost every situation with a success status, but
+                // as a pre-caution its good to verify it exists
+                if (results.push && results.push.success) {
+                console.log('Results of setting external user id push status:');
+                console.log(results.push.success);
+                }
+                
+                // Verify the email is set or check that the results have an email success status
+                if (results.email && results.email.success) {
+                console.log('Results of setting external user id email status:');
+                console.log(results.email.success);
+                }
+            
+                // Verify the number is set or check that the results have an sms success status
+                if (results.sms && results.sms.success) {
+                console.log('Results of setting external user id sms status:');
+                console.log(results.sms.success);
+                }
+            });
+     }
+
+    // ******* fin de code oneSignal pour External_user_id 
 
     const Connexion = (data) => {
         VerficationOtpNewUser(data);
