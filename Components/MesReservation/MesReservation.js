@@ -82,30 +82,30 @@ const MesReservation = () => {
 
 
         // Setting External User Id with Callback Available in SDK Version 3.9.3+
-OneSignal.setExternalUserId(idUser, (results) => {
-    // The results will contain push and email success statuses
-    console.log('Results of setting external user id');
-    console.log(results);
+// OneSignal.setExternalUserId(idUser, (results) => {
+//     // The results will contain push and email success statuses
+//     console.log('Results of setting external user id');
+//     console.log(results);
     
-    // Push can be expected in almost every situation with a success status, but
-    // as a pre-caution its good to verify it exists
-    if (results.push && results.push.success) {
-      console.log('Results of setting external user id push status:');
-      console.log(results.push.success);
-    }
+//     // Push can be expected in almost every situation with a success status, but
+//     // as a pre-caution its good to verify it exists
+//     if (results.push && results.push.success) {
+//       console.log('Results of setting external user id push status:');
+//       console.log(results.push.success);
+//     }
     
-    // Verify the email is set or check that the results have an email success status
-    if (results.email && results.email.success) {
-      console.log('Results of setting external user id email status:');
-      console.log(results.email.success);
-    }
+//     // Verify the email is set or check that the results have an email success status
+//     if (results.email && results.email.success) {
+//       console.log('Results of setting external user id email status:');
+//       console.log(results.email.success);
+//     }
   
-    // Verify the number is set or check that the results have an sms success status
-    if (results.sms && results.sms.success) {
-      console.log('Results of setting external user id sms status:');
-      console.log(results.sms.success);
-    }
-  });
+//     // Verify the number is set or check that the results have an sms success status
+//     if (results.sms && results.sms.success) {
+//       console.log('Results of setting external user id sms status:');
+//       console.log(results.sms.success);
+//     }
+//   });
 
 
 
@@ -120,8 +120,8 @@ OneSignal.setExternalUserId(idUser, (results) => {
         // OneSignal.push(function() {
         //     OneSignal.setExternalUserId(idUser);
         //   });
-        // const playerID = await OneSignal.getDeviceState();
-        // console.log("PlayerID", playerID)
+        const playerID = await OneSignal.getDeviceState();
+        console.log("PlayerID", playerID)
         // const fetch = require('node-fetch');
 
         //     const url = 'https://onesignal.com/api/v1/notifications';
