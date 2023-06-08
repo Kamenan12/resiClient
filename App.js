@@ -34,7 +34,7 @@ import DetailReservation from './Components/MesReservation/Details/DetailReserva
 
 import OneSignal from 'react-native-onesignal';
 import Constants from "expo-constants";
-
+OneSignal.setAppId("aa4ac4ba-af7d-4cda-8026-880f02f59063");
 
 
 
@@ -204,11 +204,16 @@ const Stack = createNativeStackNavigator();
 
 export default function App() {
 
-  useEffect(async () => {
-    OneSignal.setAppId("aa4ac4ba-af7d-4cda-8026-880f02f59063");
+  const userIdOnesignal = async() => {
+    const data = await OneSignal.getDeviceState();
+    console.log("dtattaa",data)
+  }
 
+  // useEffect(() => {
+    
 
-    const data = await OneSignal.getDeviceState()
+    // userIdOnesignal();
+    
     // OneSignal.addEventListener('received', onReceived);
     // OneSignal.addEventListener('opened', onOpened);
     // OneSignal.addEventListener('ids', onIds);
@@ -221,7 +226,7 @@ export default function App() {
     //   userID = status.userId;
     //   alert(userID);
     // });
-    console.log("dtattaa",data)
+    
     // OneSignal.getExternalUserId(UserId => {
     //   console.log("ExternalUser", UserId)
     // })
@@ -230,7 +235,7 @@ export default function App() {
     //     console.log("externalUserId: ", externalUserId);
     //   });
     // });
-  }, [])
+  // }, [])
 
 
 

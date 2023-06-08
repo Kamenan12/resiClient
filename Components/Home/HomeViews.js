@@ -26,7 +26,7 @@ const HomeView= () => {
     //     })
     //     return unsubscribe
     // })
-    useEffect(() => {
+    // useEffect(() => {
         // OneSignal.getPermissionSubscriptionState((status) => {
         //     console.log('Player ID:', status.userId);
         //   });
@@ -37,7 +37,7 @@ const HomeView= () => {
             //   console.log("externalUserId: ", externalUserId);
             // });
           
-    }, [])
+    // }, [])
 
     return (
         <>

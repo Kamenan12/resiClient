@@ -7,6 +7,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
 import { Icon } from "@rneui/themed";
 import tw from "twrnc"
+import OneSignal from 'react-native-onesignal';
+
 
 
 
@@ -76,28 +78,72 @@ const MesReservation = () => {
     // TEst de Onsignale poste notification 
     const SendPushNotificationTest = async() => {
 
-        const fetch = require('node-fetch');
 
-            const url = 'https://onesignal.com/api/v1/notifications';
-            const options = {
-            method: 'POST',
-            headers: {
-                accept: 'application/json',
-                Authorization: 'Basic MWY5OTNkMDMtNjBjNi00NDBhLTliNTctMDUxNGZkYzM5MWVj',
-                'content-type': 'application/json'
-            },
-            body: JSON.stringify({
-                app_id: 'aa4ac4ba-af7d-4cda-8026-880f02f59063',
-                included_segments: ['Subscribed Users'],
-                contents: {fr: 'je suis une campagne magnifique', en: 'English or Any Language Message', es: 'Spanish Message'},
-                name: 'INTERNAL_CAMPAIGN_NAME'
-            })
-            };
 
-            fetch(url, options)
-            .then(res => res.json())
-            .then(json => console.log(json))
-            .catch(err => console.error('error:' + err));
+
+        // Setting External User Id with Callback Available in SDK Version 3.9.3+
+OneSignal.setExternalUserId(idUser, (results) => {
+    // The results will contain push and email success statuses
+    console.log('Results of setting external user id');
+    console.log(results);
+    
+    // Push can be expected in almost every situation with a success status, but
+    // as a pre-caution its good to verify it exists
+    if (results.push && results.push.success) {
+      console.log('Results of setting external user id push status:');
+      console.log(results.push.success);
+    }
+    
+    // Verify the email is set or check that the results have an email success status
+    if (results.email && results.email.success) {
+      console.log('Results of setting external user id email status:');
+      console.log(results.email.success);
+    }
+  
+    // Verify the number is set or check that the results have an sms success status
+    if (results.sms && results.sms.success) {
+      console.log('Results of setting external user id sms status:');
+      console.log(results.sms.success);
+    }
+  });
+
+
+
+
+
+
+        // OneSignal.push(function() {
+        //     OneSignal.getExternalUserId().then(function(externalUserId){
+        //       console.log("externalUserId: ", externalUserId);
+        //     });
+        //   });
+        // OneSignal.push(function() {
+        //     OneSignal.setExternalUserId(idUser);
+        //   });
+        // const playerID = await OneSignal.getDeviceState();
+        // console.log("PlayerID", playerID)
+        // const fetch = require('node-fetch');
+
+        //     const url = 'https://onesignal.com/api/v1/notifications';
+        //     const options = {
+        //     method: 'POST',
+        //     headers: {
+        //         accept: 'application/json',
+        //         Authorization: 'Basic MWY5OTNkMDMtNjBjNi00NDBhLTliNTctMDUxNGZkYzM5MWVj',
+        //         'content-type': 'application/json'
+        //     },
+        //     body: JSON.stringify({
+        //         app_id: 'aa4ac4ba-af7d-4cda-8026-880f02f59063',
+        //         included_segments: ['Subscribed Users'],
+        //         contents: {fr: 'je suis une campagne magnifique', en: 'English or Any Language Message', es: 'Spanish Message'},
+        //         name: 'INTERNAL_CAMPAIGN_NAME'
+        //     })
+        //     };
+
+        //     fetch(url, options)
+        //     .then(res => res.json())
+        //     .then(json => console.log(json))
+        //     .catch(err => console.error('error:' + err));
 
 
 
