@@ -80,7 +80,7 @@ const SignIn = () => {
                 AddExternalUserIdOneSignal(user.uid)
             }); 
             alert("user bien connecter")
-            navigation.navigate("Home-G")
+            navigation.goBack()
           } catch (err) {
             alert ("errro", err);
           }

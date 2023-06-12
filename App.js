@@ -132,7 +132,10 @@ const HomeStack = createNativeStackNavigator()
             )
             :
             ( 
-              <>      
+              <>  
+              <DrawerItem label={() => <Text style={{fontSize: 19, fontWeight: "500" }}> Accueil</Text>} 
+              onPress={() => props.navigation.navigate("Home-s")} 
+              />
               <DrawerItem label={() => <Text style={{fontSize: 19, fontWeight: "500" }}> MON PROFIL</Text>}
               onPress={() => props.navigation.navigate("Setting")} 
               // style={{ borderBottomWidth: 1, borderBottomColor: "gray", backgroundColor: "white"}} 

@@ -15,6 +15,7 @@ import OneSignal from 'react-native-onesignal';
 
 const MesReservation = () => {
     const idUser = useSelector((state) => state.user.user)
+    const NonUser = useSelector((state) => state.user.nom)
     const [mesReser, setMesreser] = useState([])
     const navigation = useNavigation()
     console.log("user", idUser)
@@ -120,30 +121,31 @@ const MesReservation = () => {
         // OneSignal.push(function() {
         //     OneSignal.setExternalUserId(idUser);
         //   });
-        const playerID = await OneSignal.getDeviceState();
-        console.log("PlayerID", playerID)
-        // const fetch = require('node-fetch');
+        // const playerID = await OneSignal.getDeviceState();
+        // console.log("PlayerID", playerID)
+        const fetch = require('node-fetch');
 
-        //     const url = 'https://onesignal.com/api/v1/notifications';
-        //     const options = {
-        //     method: 'POST',
-        //     headers: {
-        //         accept: 'application/json',
-        //         Authorization: 'Basic MWY5OTNkMDMtNjBjNi00NDBhLTliNTctMDUxNGZkYzM5MWVj',
-        //         'content-type': 'application/json'
-        //     },
-        //     body: JSON.stringify({
-        //         app_id: 'aa4ac4ba-af7d-4cda-8026-880f02f59063',
-        //         included_segments: ['Subscribed Users'],
-        //         contents: {fr: 'je suis une campagne magnifique', en: 'English or Any Language Message', es: 'Spanish Message'},
-        //         name: 'INTERNAL_CAMPAIGN_NAME'
-        //     })
-        //     };
+            const url = 'https://onesignal.com/api/v1/notifications';
+            const options = {
+            method: 'POST',
+            headers: {
+                accept: 'application/json',
+                Authorization: 'Basic MWY5OTNkMDMtNjBjNi00NDBhLTliNTctMDUxNGZkYzM5MWVj',
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify({
+                app_id: 'aa4ac4ba-af7d-4cda-8026-880f02f59063',
+                include_external_user_ids: [`${idUser}`],
+                // included_segments: ['Subscribed Users'],
+                contents: {fr: `Boujours ${NonUser}`, en: 'English or Any Language Message', es: 'Spanish Message'},
+                name: 'INTERNAL_CAMPAIGN_NAME'
+            })
+            };
 
-        //     fetch(url, options)
-        //     .then(res => res.json())
-        //     .then(json => console.log(json))
-        //     .catch(err => console.error('error:' + err));
+            fetch(url, options)
+            .then(res => res.json())
+            .then(json => console.log(json))
+            .catch(err => console.error('error:' + err));
 
 
 

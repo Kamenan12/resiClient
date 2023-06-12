@@ -15,7 +15,7 @@ const Setting = () => {
     const Decon = () => {
         signOut(auth).then(() => {
             console.log("user deconnecter ");
-            navigation.navigate("Home-G")
+            navigation.navigate("Home-s")
         })
     }
     return (
